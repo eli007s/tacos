@@ -2,5 +2,5 @@
 
     require_once 'midnight.php';
 
-    $jinxup->app('pwc')
+    $midnight->app('pwc')
         ->init();
