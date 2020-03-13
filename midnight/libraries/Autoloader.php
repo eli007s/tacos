@@ -14,11 +14,11 @@
         {
             if (!in_array($class, self::$_registry))
             {
-                $rawArray           = explode('_', $class);
+                $pathToFile = __DIR__;
+                $rawArray   = explode('_', $class);
 
                 if ($rawArray[0] == 'MN')
                 {
-                    $pathToFile = __DIR__;
                     $fileNames  = [ucfirst($rawArray[1])];
 
                 } else {
