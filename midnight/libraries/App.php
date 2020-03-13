@@ -17,7 +17,7 @@
 
         public static function discover()
         {
-            $apps = JXP_Directory::scan(getcwd() . DS . 'apps');
+            $apps = MD_Directory::scan(getcwd() . DS . 'apps');
 
             foreach ($apps as $k => $v)
             {
