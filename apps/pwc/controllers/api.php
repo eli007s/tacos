@@ -203,7 +203,7 @@
             try
             {
                 $taco = $this->_listTacos($data['_taco'], 'name');
-
+print_r($taco);
                 if ($taco['status'] == 'sucess')
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
