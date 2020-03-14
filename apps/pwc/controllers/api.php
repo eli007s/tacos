@@ -43,8 +43,6 @@
             $this->_db = new PDO('sqlite:tacos.sqlite3');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $acos = $this->_listTacos();
         }
 
         public function indexAction()
@@ -139,7 +137,9 @@
 
             } catch (PDOException $e) {
 
-                echo $e->getMessage();
+                $error = $e->getMessage();
+
+                echo $e->getCode();
             }
 
             return [];
