@@ -193,7 +193,7 @@
                 exit;
             }
 
-            return ['tacos' => $results];
+            return ['status' => 'success', 'tacos' => $results];
         }
 
         private function _updateTaco($data)
@@ -202,17 +202,9 @@
 
             try
             {
-                $taco = [];
-                $query = 'SELECT * FROM ' . $this->_table . ' WHERE name = :name';
+                $taco = $this->_listTacos($data['_taco'], 'name');
 
-                $statement = $this->_db->prepare($query);
-
-                $statement->bindValue(':name', $data['_taco'], PDO::PARAM_STR);
-                $statement->execute();
-
-                $taco = $statement->fetch();
-
-                if (!empty($taco))
+                if ($taco['status'] == 'sucess')
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
 
@@ -236,11 +228,46 @@
                         }
                     }
 
-                    $statement->bindValue(':id', $taco['id'], PDO::PARAM_STR);
+                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_STR);
 
                     $statement->execute();
 
-                    $results = $this->_listTacos($taco['id'], 'id');
+                    $results = $this->_listTacos($taco['tacos'][0]['id'], 'id');
+
+                } else {
+
+                    echo json_encode(['status' => 'error', 'message' => 'Taco ' . $data['_taco'] . ' not found.']);
+                }
+
+            } catch (PDOException $e) {
+
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+                exit;
+            }
+
+            return $results;
+        }
+
+        private function _deleteTaco($data)
+        {
+            $results = [];
+
+            try
+            {
+                $taco = $this->_listTacos($data['_taco'], 'name');
+
+                if ($taco['status'] == 'sucess')
+                {
+                    $query = 'DELETE FROM ' . $this->_table . ' WHERE id = :id';
+
+                    $statement = $this->_db->prepare($query);
+
+                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_STR);
+
+                    $statement->execute();
+
+                    $results = $this->_listTacos($taco['tacos'][0]['id'], 'id');
 
                 } else {
 
