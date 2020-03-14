@@ -81,7 +81,14 @@
                 {
                     if (in_array($k, $this->_schema))
                     {
-                        $statement->bindValue(':' . $_k, $_v);
+                        $val = $_v;
+
+                        if (is_bool($val))
+                        {
+                            $val = boolval($val);
+                        }
+
+                        $statement->bindValue(':' . $_k, $val);
                     }
                 }
 
