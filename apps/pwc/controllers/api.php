@@ -75,7 +75,7 @@
                 $statement->bindParam(':' . $k, $v);
             }
 
-            foreach ($this->_initialData[0] as $k)
+            foreach ($this->_initialData as $k)
             {
                 foreach ($k as $_k => $_v)
                 {
