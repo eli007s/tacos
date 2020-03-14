@@ -169,7 +169,7 @@
             {
                 $query = 'SELECT * FROM ' . $this->_table;
 
-                if ($where != '')
+                if ($taco != '' && $where != '')
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
@@ -180,8 +180,7 @@
                 {echo 1;
                     $statement->bindValue(':' . $where, $taco, PDO::PARAM_STR);
                 }
-echo '<br />'.$query;
-echo '<br />'.$taco.'---'.$where;
+
                 if ($statement->execute())
                 {
                     $results = $statement->fetchAll();
