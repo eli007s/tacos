@@ -129,7 +129,7 @@
 
                     if (is_array($data))
                     {
-                        echo ($data[0]);
+                        echo '<pre>', print_r($data, true), '</pre>';
                     }
 
                     //echo '<pre>', print_r($data, true), '</pre>';
