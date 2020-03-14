@@ -108,7 +108,12 @@
                 }
 
                 $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
-                $results = $statement->execute();
+                $results = [];
+
+                if ($statement->execute())
+                {
+                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
 
                 echo '<pre>', print_r($results, true), '</pre>';
 
