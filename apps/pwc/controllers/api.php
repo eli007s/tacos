@@ -79,10 +79,11 @@
             {
                 if (in_array($k, $this->_schema))
                 {
-                    $statement->bindValue(':' . $k, $v);
+                    echo ':' . $k . ' :: ' . $v;
+                    //$statement->bindValue(':' . $k, $v);
                 }
 
-                $statement->execute();
+                //$statement->execute();
             }
         }
 
@@ -143,7 +144,7 @@
                     $this->_seed();
                 }
 
-                $this->_listTacos();
+                //$this->_listTacos();
             }
 
             return [];
