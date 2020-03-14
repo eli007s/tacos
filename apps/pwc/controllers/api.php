@@ -202,33 +202,45 @@
 
             try
             {
-                $query = 'UPDATE ' . $this->_table . ' SET ';
-
-                foreach ($data as $k => $v)
-                {
-                    if (array_key_exists($k, $this->_schema))
-                    {
-                        $query .= '`' . $k . '` = :' . $k . ',';
-                    }
-                }
-
-                $query = rtrim($query, ',') . ' WHERE name = :taco';
+                $taco = [];
+                $query = 'SELECT * FROM ' . $this->_table . ' WHERE name = :name';
 
                 $statement = $this->_db->prepare($query);
 
-                foreach ($data as $k => $v)
+                $statement->bindValue(':name', $data['_taco'], PDO::PARAM_STR);
+
+                if ($statement->execute())
                 {
-                    if (array_key_exists($k, $this->_schema))
+                    $taco = $statement->fetch();
+print_r($taco);
+                    $query = 'UPDATE ' . $this->_table . ' SET ';
+
+                    foreach ($data as $k => $v)
                     {
-                        $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
+                        if (array_key_exists($k, $this->_schema))
+                        {
+                            $query .= '`' . $k . '` = :' . $k . ',';
+                        }
                     }
+
+                    $query = rtrim($query, ',') . ' WHERE name = :taco';
+
+                    $statement = $this->_db->prepare($query);
+
+                    foreach ($data as $k => $v)
+                    {
+                        if (array_key_exists($k, $this->_schema))
+                        {
+                            $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
+                        }
+                    }
+
+                    $statement->bindValue(':taco', $data['_taco'], PDO::PARAM_STR);
+
+                    $statement->execute();
+
+                    $results = $this->_listTacos($this->_db->lastInsertId(), 'id');
                 }
-
-                $statement->bindValue(':taco', $data['_taco'], PDO::PARAM_STR);
-
-                $statement->execute();
-echo $this->_db->lastInsertId();
-                $results = $this->_listTacos($this->_db->lastInsertId(), 'id');
 
             } catch (PDOException $e) {
 
