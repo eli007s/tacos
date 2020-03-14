@@ -127,12 +127,7 @@
 
                     parse_str(file_get_contents("php://input"), $data);
 
-                    if (is_array($data))
-                    {
-                        $data = array_keys($data)[0];
-                        echo '<pre>', print_r($data, true), '</pre>';
-                    }
-
+                    echo json_encode($data);
                     //echo '<pre>', print_r($data, true), '</pre>';
 
                 break;
