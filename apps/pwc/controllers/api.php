@@ -3,6 +3,7 @@
     class Api_Controller
     {
         private $_table = 'tacos';
+        private $_database = 'tacos';
 
         private $_db = null;
         private $_schema = [
@@ -42,7 +43,7 @@
 
         public function __construct()
         {
-            $this->_db = new PDO('sqlite:' . __DIR__ . '/tacos.sqlite3');
+            $this->_db = new PDO('sqlite:' . __DIR__ . '/' . $this->_database . '.db');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
