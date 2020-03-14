@@ -87,7 +87,7 @@
                         if (array_key_exists($_k, $this->_schema))
                         {
                             $val = $_v;
-
+echo $this->_schema[$_k].'________-';
                             if ($this->_schema[$_k] == 5)
                             {
                                 $val = boolval($_v);
