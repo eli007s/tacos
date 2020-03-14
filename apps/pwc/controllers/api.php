@@ -227,7 +227,7 @@
                 $statement->bindValue(':taco', $data['_taco'], PDO::PARAM_STR);
 
                 $statement->execute();
-
+echo $this->_db->lastInsertId();
                 $results = $this->_listTacos($this->_db->lastInsertId(), 'id');
 
             } catch (PDOException $e) {
