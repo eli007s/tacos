@@ -56,9 +56,9 @@
             echo '🌮';
         }
 
-        public function tacosAction()
+        public function tacosAction($taco = '')
         {
-            $this->_tacos();
+            $this->_tacos($taco);
         }
 
         public function seedAction()
@@ -119,7 +119,7 @@
             echo json_encode(['status' => 'success']);
         }
 
-        private function _tacos()
+        private function _tacos($taco = '')
         {
             switch ($_SERVER['REQUEST_METHOD'])
             {
@@ -148,19 +148,33 @@
 
                 default:
 
-                    $tacos = $this->_listTacos();
+                    $taco = urldecode($taco);
+                    $tacos = $this->_listTacos($taco);
 
                     echo json_encode($tacos);
                 }
         }
 
-        private function _listTacos()
+        private function _listTacos($taco = '')
         {
             $results = [];
 
             try
             {
-                $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
+                $query = 'SELECT * FROM ' . $this->_table;
+
+                if ($taco != '')
+                {
+                    $query .= ' WHERE `name` = :name';
+                }
+
+                $statement = $this->_db->prepare($query);
+
+                if ($taco != '')
+                {
+                    $statement->bindParam(':name', $taco);
+                    $statement->bindValue(':name' . $taco);
+                }
 
                 if ($statement->execute())
                 {
