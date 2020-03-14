@@ -177,10 +177,11 @@
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '')
-                {
+                {echo 1;
                     $statement->bindValue(':' . $where, $taco, PDO::PARAM_STR);
                 }
-
+echo '<br />'.$query;
+echo '<br />'.$taco.'---'.$where;
                 if ($statement->execute())
                 {
                     $results = $statement->fetchAll();
