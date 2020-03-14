@@ -173,7 +173,7 @@
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
-echo $taco;
+
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '')
