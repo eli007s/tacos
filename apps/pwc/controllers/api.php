@@ -176,8 +176,8 @@
 
                 $statement = $this->_db->prepare($query);
 
-                if ($taco != '')
-                {echo 1;
+                if ($taco != '' && $where != '')
+                {
                     $statement->bindValue(':' . $where, $taco, PDO::PARAM_STR);
                 }
 
