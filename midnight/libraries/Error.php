@@ -43,7 +43,7 @@
 
             if (!is_null($error))
             {
-                self::log($error['type'], $error['message'], $error['file'], $error['line'], [];
+                self::log($error['type'], $error['message'], $error['file'], $error['line'], []);
             }
 
             if (!empty(self::$_error) && self::$_showErrors === true)
