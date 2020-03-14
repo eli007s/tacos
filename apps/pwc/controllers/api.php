@@ -201,7 +201,7 @@
         private function _updateTaco($data)
         {
             $results = [];
-echo '<pre>', print_r($data, true), '</pre>';
+
             try
             {
                 $query = 'UPDATE ' . $this->_table . ' SET ';
@@ -226,9 +226,7 @@ echo '<pre>', print_r($data, true), '</pre>';
                     }
                 }
 
-                $statement->bindValue(':taco', $data['taco'], PDO::PARAM_STR);
-
-                $statement = $this->_db->prepare($query);
+                $statement->bindValue(':taco', $data['_taco'], PDO::PARAM_STR);
 
                 $statement->execute();
 
