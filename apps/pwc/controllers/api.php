@@ -70,8 +70,8 @@
                     name VARCHAR(160) NOT NULL,
                     tortilla VARCHAR(160) NOT NULL,
                     toppings TEXT NOT NULL,
-                    vegetarian BOOLEAN NOT NULL,
-                    soft BOOLEAN NOT NULL
+                    vegetarian VARCHAR(5) NOT NULL,
+                    soft VARCHAR(5) NOT NULL
                 )');
 
                 $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
