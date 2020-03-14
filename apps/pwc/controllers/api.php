@@ -90,23 +90,20 @@
 
                             if ($this->_schema[$_k] === 5)
                             {
-                                //filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-                                //$val = json_decode($_v, true);
                                 $val = ((int)$_v === 1 ? 'true' : 'false');
 
                                 filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-
-                                echo "\nbindValue::$_k = $val => $_v => ".((int)$_v === 1 ? 'true' : 'false')."\n";
 
                             } else {
 
                                 $val = (string)$_v;
                             }
+
                             $statement->bindValue(':' . $_k, $val);
                         }
                     }
 
-                    //$statement->execute();
+                    $statement->execute();
                 }
 
                 $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
