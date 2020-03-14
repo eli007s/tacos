@@ -201,7 +201,7 @@
         private function _updateTaco($data)
         {
             $results = [];
-
+echo '<pre>', print_r($data, true), '</pre>';
             try
             {
                 $query = 'UPDATE ' . $this->_table . ' SET ';
