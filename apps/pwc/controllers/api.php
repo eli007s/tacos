@@ -80,9 +80,9 @@
                     $statement->bindParam(':' . $k, $v);
                 }
 
-                foreach ($this->_initialData as $k)
+                foreach ($this->_initialData as $k => $v)
                 {//print_r($k);
-                    foreach ($k as $_k => $_v)
+                    foreach ($v as $_k => $_v)
                     {echo '______'.$_k.'__'.$_v;
                         if (in_array($_k, $this->_schema))
                         {
