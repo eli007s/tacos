@@ -46,6 +46,7 @@
             $this->_db = new PDO('sqlite:' . __DIR__ . '/' . $this->_database . '.db');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
 
         public function indexAction()
@@ -107,9 +108,9 @@
                 }
 
                 $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
-                $results = $statement->execute(\PDO::FETCH_ASSOC);
+                $results = $statement->execute();
 
-                echo '<pre>', print_r($statement, true), '</pre>';
+                echo '<pre>', print_r($results, true), '</pre>';
 
             } catch (PDOException $e) {
 
