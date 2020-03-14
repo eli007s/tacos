@@ -83,7 +83,7 @@
                 foreach ($this->_initialData as $k => $v)
                 {
                     foreach ($v as $_k => $_v)
-                    {echo $_k;
+                    {echo $_v;
                         if (in_array($_k, $this->_schema))
                         {
                             $val = $_v;
