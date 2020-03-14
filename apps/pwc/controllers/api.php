@@ -213,6 +213,8 @@
                     {
                         if (array_key_exists($k, $this->_schema))
                         {
+                            echo $k . ' = ' . $v . '<br />';
+
                             $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
                         }
                     }
