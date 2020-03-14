@@ -213,13 +213,13 @@
                     {
                         if (array_key_exists($k, $this->_schema))
                         {
-                            if (is_bool($v))
-                            {
-                                echo $this->_schema[$k] . ';;;';
+                            //if (is_bool($v))
+                            //{
+                                echo gettype($v) . ';;;';
                                 //$val = ((int)$_i === 1 ? 'true' : 'false');
 
                                 //filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                            }
+                            //}
 
                             $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
                         }
