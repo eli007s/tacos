@@ -148,7 +148,8 @@
 
                 default:
 
-                    $taco = urldecode($taco);
+                    $taco = utf8_decode(urldecode($taco));
+                    echo $taco;
                     $tacos = $this->_listTacos($taco);
 
                     echo json_encode($tacos);
