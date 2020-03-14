@@ -79,7 +79,7 @@
             {
                 if (in_array($k, $this->_schema))
                 {
-                    echo ':' . $k . ' :: ' . print_r($v);
+                    echo ':' . $k . ' :: ' . $v;
                     //$statement->bindValue(':' . $k, $v);
                 }
 
