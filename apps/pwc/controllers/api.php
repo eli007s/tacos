@@ -102,7 +102,7 @@ echo $this->_schema[$_k].'<br />';
                         }
                     }
 
-                    $statement->execute();
+                    //$statement->execute();
                 }
 
                 $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
