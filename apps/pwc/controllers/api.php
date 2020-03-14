@@ -77,19 +77,18 @@
 
                 foreach ($this->_schema as $k => $v)
                 {
-                    echo "\nbindParam::$k = $v\n";
                     $statement->bindParam(':' . $k, $v);
                 }
 
                 foreach ($this->_initialData as $k)
                 {
                     foreach ($k as $_k => $_v)
-                    {
+                    {echo '______'.$k.'__'.$_k;
                         if (in_array($k, $this->_schema))
                         {
                             $val = $_v;
 
-                            if ($k == PDO::PARAM_BOOL)
+                            if ($k == 5)
                             {
                                 $val = boolval($_v);
 

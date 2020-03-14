@@ -43,7 +43,7 @@
 
             if (!is_null($error))
             {
-                self::log($error['type'], $error['message'], $error['file'], $error['line'], array());
+                self::log($error['type'], $error['message'], $error['file'], $error['line'], [];
             }
 
             if (!empty(self::$_error) && self::$_showErrors === true)
@@ -56,16 +56,16 @@
 
         public static function log($errNo, $errMsg, $fileName, $lineNum)
         {
-            self::$_error['exceptions'][] = array(
+            self::$_error['exceptions'][] = [
                 'type'   => self::$errorType[$errNo],
                 'time'   => date('Y-m-d H:i:s (T)'),
                 'num'    => $errNo,
                 'msg'    => $errMsg,
-                'script' => array(
+                'script' => [
                     'name' => $fileName,
                     'line' => $lineNum
-                )
-            );
+                ]
+            ];
 
             echo '<pre>', print_r(self::$_error, true), '</pre>';
         }
