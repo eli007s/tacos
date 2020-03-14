@@ -133,7 +133,7 @@
         {
             $statement = $this->_db->prepare('SELECT * FROM tacos');
 
-            $statement->execute();
+            //$statement->execute();
 
             return $statement->errorInfo();
         }
