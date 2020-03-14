@@ -149,7 +149,6 @@
                 default:
 
                     $taco = utf8_decode(urldecode($taco));
-                    echo $taco;
                     $tacos = $this->_listTacos($taco);
 
                     echo json_encode($tacos);
@@ -174,7 +173,7 @@
                 if ($taco != '')
                 {
                     $statement->bindParam(':name', $taco);
-                    $statement->bindValue(':name' . $taco);
+                    $statement->bindValue(':name',  $taco);
                 }
 
                 if ($statement->execute())
