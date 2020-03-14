@@ -110,7 +110,7 @@
 
                 break;
 
-                case 'get':
+                case 'GET':
 
                     $tacos = $this->_listTacos();
 
