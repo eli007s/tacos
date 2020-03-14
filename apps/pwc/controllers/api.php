@@ -57,20 +57,24 @@
 
         private function _seed()
         {
-            $statement = $this->_db->prepare('CREATE TABLE tacos (
-                `id` INTEGER PRIMARY KEY,
-                `name` VARCHAR,
-                `tortilla` VARCHAR,
-                `toppings` TEXT,
-                `vegetarian` BOOLEAN,
-                `soft` BOOLEAN
+            $statement = $this->_db->prepare('CREATE TABLE "tacos" (
+                [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                [name] VARCHAR(160) NOT NULL,
+                [tortilla] VARCHAR(160) NOT NULL,
+                [toppings] TEXT NOT NULL,
+                [vegetarian] BOOLEAN NOT NULL,
+                [soft] BOOLEAN NOT NULL
             )');
-            
-            $statement->execute();
-            
-            echo '<pre>', print_r($statement->errorInfo(), true);
 
-            /*$insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
+            $statement->execute();
+
+            $statement = $this->_db->query('SELECT * FROM tacos');
+
+            $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+            echo '<pre>', print_r($results, true), '</pre>';
+
+            $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
             $statement = $this->_db->prepare($insert);
 
@@ -97,9 +101,9 @@
                 }
 
                 $statement->execute();
-            }*/
+            }
 
-			echo '<pre>', print_r($statement->errorInfo(), true);
+            echo '<pre>', print_r($statement->errorInfo(), true);
 
             return $this->_initialData;
         }
@@ -147,8 +151,8 @@
 
         private function _listTacos()
         {
-        	$results = null;
-        	
+            $results = null;
+
             try
             {
                 $statement = $this->_db->prepare('SELECT * FROM tacos');
