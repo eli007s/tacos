@@ -81,10 +81,10 @@
                 }
 
                 foreach ($this->_initialData as $k)
-                {
+                {print_r($k);
                     foreach ($k as $_k => $_v)
-                    {echo '______'.$k.'__'.$_k;
-                        if (in_array($k, $this->_schema))
+                    {//echo '______'.$k.'__'.$_k;
+                        if (in_array($_k, $this->_schema))
                         {
                             $val = $_v;
 
