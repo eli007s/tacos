@@ -56,7 +56,7 @@
 
         public function tacosAction()
         {
-            //$this->_tacos();
+            $this->_tacos();
         }
 
         public function seedAction()
@@ -107,22 +107,14 @@
                     $statement[$k]->execute();
                 }
 
-                $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
-                $results = [];
-
-                if ($statement->execute())
-                {
-                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                }
-
-                echo '<pre>', print_r($results, true), '</pre>';
-
             } catch (PDOException $e) {
 
-                echo $e->getMessage();
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+                exit;
             }
 
-            //return $this->_initialData;
+            echo json_encode(['status' => 'success']);
         }
 
         private function _tacos()
@@ -168,17 +160,15 @@
 
         private function _listTacos()
         {
-            $results = null;
+            $results = [];
 
             try
             {
-                $statement = $this->_db->prepare('SELECT * FROM tacos');
+                $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
 
-                $results = $statement->execute();
-
-                if ($results)
+                if ($statement->execute())
                 {
-                    echo '<pre>', print_r($results, true), '</pre>';
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                 }
 
             } catch (PDOException $e) {
