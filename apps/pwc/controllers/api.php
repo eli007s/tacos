@@ -10,8 +10,8 @@
             'name' => PDO::PARAM_STR,
             'tortilla' => PDO::PARAM_STR,
             'toppings' => PDO::PARAM_STR,
-            'vegetarian' => PDO::PARAM_BOOL,
-            'soft' => PDO::PARAM_BOOL
+            'vegetarian' => PDO::PARAM_STR,
+            'soft' => PDO::PARAM_STR
         ];
         private $_initialData = [
             [
@@ -80,29 +80,22 @@
                 {
                     $statement[$k] = $this->_db->prepare($insert);
 
-                    foreach ($this->_schema as $_k => $_v)
-                    {
-                        $statement[$k]->bindParam(':' . $_k, $_v);
-                    }
-
                     foreach ($v as $_j => $_i)
                     {
                         if (array_key_exists($_j, $this->_schema))
                         {
                             $val = $_i;
 
-                            if ($this->_schema[$_j] === 5)
+                            if (is_bool($_i))
                             {
                                 $val = ((int)$_i === 1 ? 'true' : 'false');
-
-                                filter_var($val, FILTER_VALIDATE_BOOLEAN);
 
                             } else {
 
                                 $val = (string)$_i;
                             }
 
-                            $statement[$k]->bindValue(':' . $_j, $val);
+                            $statement[$k]->bindValue(':' . $_j, $val, PDO::PARAM_STR);
                         }
                     }
 
@@ -217,7 +210,7 @@
                             {
                                 //filter_var($v, FILTER_VALIDATE_BOOLEAN);
 echo boolVal($v)."\n";
-                                $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_BOOL);
+                                $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_STR);
 
                             } else {
 
