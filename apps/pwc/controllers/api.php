@@ -73,33 +73,33 @@
 
                 $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
-                $statement = $this->_db->prepare($insert);
-
-                foreach ($this->_schema as $k => $v)
-                {
-                    $statement->bindParam(':' . $k, $v);
-                }
-
                 foreach ($this->_initialData as $k => $v)
                 {
-                    foreach ($v as $_k => $_v)
-                    {
-                        if (array_key_exists($_k, $this->_schema))
-                        {
-                            $val = $_v;
+                    $statement = $this->_db->prepare($insert);
 
-                            if ($this->_schema[$_k] === 5)
+                    foreach ($this->_schema as $_k => $_v)
+                    {
+                        $statement->bindParam(':' . $_k, $_v);
+                    }
+
+                    foreach ($v as $_j => $_i)
+                    {
+                        if (array_key_exists($_j, $this->_schema))
+                        {
+                            $val = $_i;
+
+                            if ($this->_schema[$_j] === 5)
                             {
-                                $val = ((int)$_v === 1 ? 'true' : 'false');
+                                $val = ((int)$_i === 1 ? 'true' : 'false');
 
                                 filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
                             } else {
 
-                                $val = (string)$_v;
+                                $val = (string)$_i;
                             }
 
-                            $statement->bindValue(':' . $_k, $val);
+                            $statement->bindValue(':' . $_j, $val);
                         }
                     }
 
