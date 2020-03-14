@@ -211,7 +211,7 @@
                 $statement->execute();
 
                 $taco = $statement->fetch();
-print_r($taco);
+
                 if (!empty($taco))
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
