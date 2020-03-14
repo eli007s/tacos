@@ -75,7 +75,7 @@
 
                 foreach ($this->_initialData as $k => $v)
                 {
-                    $statement[k] = $this->_db->prepare($insert);
+                    $statement[$k] = $this->_db->prepare($insert);
 
                     foreach ($this->_schema as $_k => $_v)
                     {
