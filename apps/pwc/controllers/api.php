@@ -4,12 +4,14 @@
     {
         public function indexAction()
         {
-            $this->_taco('', 'get');
+            echo '🌮';
         }
 
         public function tacosAction()
         {
-            echo 'list of 🌮s';
+            $this->_taco('', 'get');
+
+            echo '<pre>', print_r($_SERVER, true), '</pre>';
         }
 
         private function _taco($taco = '', $method = 'get')
