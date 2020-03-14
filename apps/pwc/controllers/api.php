@@ -92,12 +92,12 @@
                             {
                                 $val = filter_var($_v, FILTER_VALIDATE_BOOLEAN);
 
+
+                            echo "\nbindValue::$_k = $val\n";
                             } else {
 
                                 $val = (string)$_v;
                             }
-
-                            echo "\nbindValue::$_k = $val\n";
                             $statement->bindValue(':' . $_k, $val);
                         }
                     }
