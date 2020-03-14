@@ -40,7 +40,7 @@
 
         public function __construct()
         {
-            $this->_db = new PDO('sqlite:tacos.sqlite3');
+            $this->_db = new PDO('sqlite:' . __DIR__ . '/tacos.sqlite3');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
@@ -57,20 +57,17 @@
 
         private function _seed()
         {
-            $statement = $this->_db->prepare('CREATE TABLE "tacos" (
-                [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                [name] VARCHAR(160) NOT NULL,
-                [tortilla] VARCHAR(160) NOT NULL,
-                [toppings] TEXT NOT NULL,
-                [vegetarian] BOOLEAN NOT NULL,
-                [soft] BOOLEAN NOT NULL
+            $this->_db->exec('CREATE TABLE IF NOT EXISTS tacos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                name VARCHAR(160) NOT NULL,
+                tortilla VARCHAR(160) NOT NULL,
+                toppings TEXT NOT NULL,
+                vegetarian BOOLEAN NOT NULL,
+                soft BOOLEAN NOT NULL
             )');
 
-            $statement->execute();
-
             $statement = $this->_db->query('SELECT * FROM tacos');
-
-            $results = $statement->fetch(PDO::FETCH_ASSOC);
+            $results = $statement->fetch(\PDO::FETCH_ASSOC);
 
             echo '<pre>', print_r($results, true), '</pre>';
 
