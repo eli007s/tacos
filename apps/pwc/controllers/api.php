@@ -74,20 +74,18 @@
                 $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
                 $statement = $this->_db->prepare($insert);
-echo 1;
+
                 foreach ($this->_schema as $k => $v)
-                {echo 2;
+                {
                     $statement->bindParam(':' . $k, $v);
                 }
-echo 3;
+
                 foreach ($this->_initialData as $k)
                 {print_r($k);
-                    echo 4;
                     foreach ($k as $_k => $_v)
-                    {//echo '______'.$k.'__'.$_k;
-                        echo 5;
-                        //if (in_array($_k, $this->_schema))
-                        //{
+                    {echo '______'.$k.'__'.$_k;
+                        if (in_array($k, $this->_schema))
+                        {
                             $val = $_v;
 
                             if ($k == 5)
@@ -101,7 +99,7 @@ echo 3;
 
                             echo "\nbindValue::$_k = $val\n";
                             $statement->bindValue(':' . $_k, $val);
-                        //}
+                        }
                     }
 
                     $statement->execute();
