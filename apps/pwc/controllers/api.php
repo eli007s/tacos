@@ -169,7 +169,7 @@
             {
                 $query = 'SELECT * FROM ' . $this->_table;
 
-                if ($taco != '')
+                if ($where != '')
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
@@ -208,9 +208,11 @@
                 $statement = $this->_db->prepare($query);
 
                 $statement->bindValue(':name', $data['_taco'], PDO::PARAM_STR);
+                $statement->execute();
+                $taco = $statement->fetch();
 
-                if ($statement->execute())
-                {
+                //if ($statement->execute())
+                //{
                     $taco = $statement->fetch();
 
                     $query = 'UPDATE ' . $this->_table . ' SET ';
@@ -240,7 +242,7 @@
                     $statement->execute();
 
                     $results = $this->_listTacos($taco['id'], 'id');
-                }
+                //}
 
             } catch (PDOException $e) {
 
