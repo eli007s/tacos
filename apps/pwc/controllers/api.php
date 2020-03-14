@@ -58,12 +58,12 @@
         private function _seed()
         {
             $statement = $this->_db->prepare('CREATE TABLE tacos (
-                id INTEGER PRIMARY KEY,
-                name VARCHAR,
-                tortilla VARCHAR,
-                toppings TEXT,
-                vegetarian BOOLEAN,
-                soft BOOLEAN
+                `id` INTEGER PRIMARY KEY,
+                `name` VARCHAR,
+                `tortilla` VARCHAR,
+                `toppings` TEXT,
+                `vegetarian` BOOLEAN,
+                `soft` BOOLEAN
             )');
             
             $statement->execute();
