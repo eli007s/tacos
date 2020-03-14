@@ -131,12 +131,17 @@
 
         private function _listTacos()
         {
-
-            if ($statement = $this->_db->prepare('SELECT * FROM tacos'))
+            try
             {
+                $statement = $this->_db->prepare('SELECT * FROM tacos');
+
                 return $statement->execute();
+
+            } catch (PDOException $e) {
+
+                echo $e->getMessage();
             }
 
-            return $statement->errorInfo();
+            return [];
         }
     }
