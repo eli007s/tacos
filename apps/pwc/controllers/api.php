@@ -90,7 +90,7 @@
 
                             if ($this->_schema[$_k] == 5)
                             {
-                                $val = boolval($_v);
+                                $val = filter_var($_v, FILTER_VALIDATE_BOOLEAN);
 
                             } else {
 
