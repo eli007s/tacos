@@ -129,11 +129,9 @@
 
                     $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
 
-                    $this->_updateTaco($data);
+                    $taco = $this->_updateTaco($data);
 
-                    $tacos = $this->_listTacos($data['_taco']);
-
-                    echo json_encode($tacos);
+                    echo json_encode($taco);
 
                 break;
 
@@ -230,11 +228,15 @@
 
                 $statement->execute();
 
+                $results = $this->_listTacos($data['_taco']);
+
             } catch (PDOException $e) {
 
                 echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 
                 exit;
             }
+
+            return $results;
         }
     }
