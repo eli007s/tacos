@@ -224,7 +224,7 @@
                     {
                         $query .= '`' . $k . '` = :' . $k . ',';
 
-                        $statement->bindValue(':' . $k, $v, $this->_scheme[$k]);
+                        $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
                     }
                 }
 
