@@ -131,9 +131,10 @@
 
         private function _listTacos()
         {
-            $statement = $this->_db->prepare('SELECT * FROM tacos');
-
-            //$statement->execute();
+            if ($statement = $this->_db->prepare('SELECT * FROM tacos'))
+            {
+                return $statement->execute();
+            }
 
             return $statement->errorInfo();
         }
