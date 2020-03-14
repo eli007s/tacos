@@ -150,7 +150,7 @@
 
                     $tacos = $this->_listTacos();
 
-                    echo $tacos;
+                    echo json_encode($tacos);
                 }
         }
 
