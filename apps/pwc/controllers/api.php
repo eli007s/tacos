@@ -129,7 +129,7 @@
 
                     if (is_array($data))
                     {
-                        echo json_encode($data);
+                        echo ($data);
                     }
 
                     //echo '<pre>', print_r($data, true), '</pre>';
