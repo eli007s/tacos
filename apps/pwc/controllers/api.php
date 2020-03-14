@@ -145,7 +145,12 @@
             {
                 $statement = $this->_db->prepare('SELECT * FROM tacos');
 
-                return $statement->execute();
+                $results = $statement->execute();
+
+                if ($results)
+                {
+                    echo '<pre>', print_r($results, true), '</pre>';
+                }
 
             } catch (PDOException $e) {
 
