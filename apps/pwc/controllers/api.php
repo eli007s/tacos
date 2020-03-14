@@ -50,7 +50,12 @@
             echo '🌮';
         }
 
-        public function seed()
+        public function tacosAction()
+        {
+            $this->_tacos();
+        }
+
+        private function _seed()
         {
             $this->_db->exec('CREATE TABLE IF NOT EXISTS "tacos" (
                 "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -79,11 +84,6 @@
 
                 $statement->execute();
             }
-        }
-
-        public function tacosAction()
-        {
-            $this->_tacos();
         }
 
         private function _tacos()
@@ -136,10 +136,14 @@
                 return $statement->execute();
 
             } catch (PDOException $e) {
+                $code = $e->getCode();
 
-                $error = $e->getMessage();
+                if ($code === 'HY000')
+                {
+                    $this->_seed();
+                }
 
-                echo $e->getCode();
+                $this->_listTacos();
             }
 
             return [];
