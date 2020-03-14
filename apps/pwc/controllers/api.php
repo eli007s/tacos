@@ -71,17 +71,13 @@
                     soft BOOLEAN NOT NULL
                 )');
 
-                $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
-                $results = $statement->fetch(\PDO::FETCH_ASSOC);
-
-                echo '<pre>', print_r($results, true), '</pre>';
-
                 $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
                 $statement = $this->_db->prepare($insert);
 
                 foreach ($this->_schema as $k => $v)
                 {
+                    echo "\nbindParam::$k = $v\n";
                     $statement->bindParam(':' . $k, $v);
                 }
 
@@ -93,11 +89,16 @@
                         {
                             $val = $_v;
 
-                            if (is_bool($val))
+                            if ($k == PDO::PARAM_BOOL)
                             {
-                                $val = boolval($val);
+                                $val = boolval($_v);
+
+                            } else {
+
+                                $val = (string)$_v;
                             }
 
+                            echo "\nbindValue::$_k = $val\n";
                             $statement->bindValue(':' . $_k, $val);
                         }
                     }
@@ -105,7 +106,10 @@
                     $statement->execute();
                 }
 
-                echo '<pre>', print_r($statement->errorInfo(), true);
+                $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
+                $results = $statement->fetch(\PDO::FETCH_ASSOC);
+
+                echo '<pre>', print_r($results, true), '</pre>';
 
             } catch (PDOException $e) {
 
