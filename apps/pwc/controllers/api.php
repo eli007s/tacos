@@ -112,7 +112,7 @@
 
                 if ($statement->execute())
                 {
-                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                 }
 
                 echo '<pre>', print_r($results, true), '</pre>';
