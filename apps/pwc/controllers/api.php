@@ -146,7 +146,7 @@
                     $this->_seed();
                 }
 
-                //$this->_listTacos();
+                $this->_listTacos();
             }
 
             return [];
