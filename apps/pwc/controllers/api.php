@@ -215,7 +215,7 @@
                         {
                             //if (is_bool($v))
                             //{
-                                echo gettype($v) . ';;;';
+                                echo gettype($v) . '/'.$v.';;;';
                                 //$val = ((int)$_i === 1 ? 'true' : 'false');
 
                                 //filter_var($val, FILTER_VALIDATE_BOOLEAN);
