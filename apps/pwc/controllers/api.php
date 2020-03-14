@@ -133,7 +133,7 @@
 
                     $tacos = $this->_listTacos($taco);
 
-                    echo json_encode($tacos);
+                    echo json_encode($data['_taco']);
 
                 break;
 
