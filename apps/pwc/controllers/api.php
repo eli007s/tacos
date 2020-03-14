@@ -81,14 +81,14 @@
                 }
 
                 foreach ($this->_initialData as $k => $v)
-                {//print_r($k);
+                {
                     foreach ($v as $_k => $_v)
                     {echo '______'.$_k.'__'.$_v;
                         if (in_array($_k, $this->_schema))
                         {
                             $val = $_v;
-
-                            if ($k == 5)
+echo $this->_schema[$_k].'<br />';
+                            if ($this->_schema[$_k] == 5)
                             {
                                 $val = boolval($_v);
 
