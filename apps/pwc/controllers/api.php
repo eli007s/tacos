@@ -147,6 +147,8 @@
 
         private function _listTacos()
         {
+        	$results = null;
+        	
             try
             {
                 $statement = $this->_db->prepare('SELECT * FROM tacos');
@@ -168,6 +170,6 @@
                 }
             }
 
-            return [];
+            return $results;
         }
     }
