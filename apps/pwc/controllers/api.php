@@ -126,9 +126,9 @@
                 case 'put':
 
                     parse_str(file_get_contents("php://input"), $data);
-
+                    print_r($data);
                     $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
-
+                    print_r($data);
                     $taco = $this->_updateTaco($data);
 
                     echo json_encode($taco);
@@ -207,7 +207,7 @@
                 if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
-print_r($data);
+//print_r($data);
                     foreach ($data as $k => $v)
                     {
                         if (array_key_exists($k, $this->_schema))
