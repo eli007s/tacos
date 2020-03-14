@@ -95,6 +95,8 @@
                 $statement->execute();
             }
 
+			echo '<pre>', print_r($statement->errorInfo());
+
             return $this->_initialData;
         }
 
