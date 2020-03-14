@@ -3,33 +3,38 @@
     class Api_Controller
     {
         private $_db = null;
+        private $_schema = [
+            'name' => PDO::PARAM_STR,
+            'tortilla' => PDO::PARAM_STR,
+            'toppings' => PDO::PARAM_STR,
+            'vegetarian' => PDO::PARAM_BOOL,
+            'soft' => PDO::PARAM_BOOL
+        ];
         private $_initialData = [
-            "tacos" => [
-                [
-                    "name" => "chorizo taco",
-                    "tortilla" => "corn",
-                    "toppings" => "chorizo",
-                    "vegetarian" => false,
-                    "soft" => true
-                ],[
-                    "name" => "chicken taco",
-                    "tortilla" => "flour",
-                    "toppings" => "chicken",
-                    "vegetarian" => false,
-                    "soft" => true
-                ], [
-                    "name" => "al pastor taco",
-                    "tortilla" => "corn",
-                    "toppings" => "pork",
-                    "vegetarian" => false,
-                    "soft" => true
-                ],[
-                    "name" => "veggie taco",
-                    "tortilla" => "spinach",
-                    "toppings" => "veggies",
-                    "vegetarian" => true,
-                    "soft" => true
-                ]
+            [
+                'name' => 'chorizo taco',
+                'tortilla' => 'corn',
+                'toppings' => 'chorizo',
+                'vegetarian' => false,
+                'soft' => true
+            ],[
+                'name' => 'chicken taco',
+                'tortilla' => 'flour',
+                'toppings' => 'chicken',
+                'vegetarian' => false,
+                'soft' => true
+            ], [
+                'name' => 'al pastor taco',
+                'tortilla' => 'corn',
+                'toppings' => 'pork',
+                'vegetarian' => false,
+                'soft' => true
+            ],[
+                'name' => 'veggie taco',
+                'tortilla' => 'spinach',
+                'toppings' => 'veggies',
+                'vegetarian' => true,
+                'soft' => true
             ]
         ];
 
@@ -59,19 +64,17 @@
 
                 $statement = $this->_db->prepare($insert);
 
-                $statement->bindParam(':name', PDO::PARAM_STR);
-                $statement->bindParam(':tortilla',PDO::PARAM_STR);
-                $statement->bindParam(':toppings', PDO::PARAM_STR);
-                $statement->bindParam(':vegetarian', PDO::PARAM_BOOL);
-                $statement->bindParam(':soft', PDO::PARAM_BOOL);
+                foreach ($this->_schema as $k => $v)
+                {
+                    $statement->bindParam(':' . $k, $v);
+                }
 
                 foreach ($this->_initialData as $k => $v)
                 {
-                    $statement->bindValue(':name', $v['name']);
-                    $statement->bindValue(':tortilla', $v['tortilla']);
-                    $statement->bindValue(':toppings', $v['toppings']);
-                    $statement->bindValue(':vegetarian', $v['vegetarian']);
-                    $statement->bindValue(':soft', $v['soft']);
+                    if (in_array($k, $this->_schema))
+                    {
+                        $statement->bindValue(':' . $k, $v);
+                    }
 
                     $statement->execute();
                 }
@@ -107,9 +110,24 @@
 
                 break;
 
+                case 'get':
+
+                    $tacos = $this->_listTacos();
+
+                    echo '<pre>', print_r($tacos, true), '</pre>';
+
+                    return '';
+
                 default:
 
-                    echo '🌮s';
+                    echo '🌮';
             }
+        }
+
+        private function _listTacos()
+        {
+            $statement = $this->_db->query('SELECT * FROM tacos');
+
+            return $statement->fetch();
         }
     }
