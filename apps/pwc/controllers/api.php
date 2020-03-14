@@ -215,13 +215,12 @@
                         {
                             if ($v == 'true' || $v == 'false')
                             {
-                                echo gettype($v) . '/'.$v.';;;';
-                                //$val = ((int)$_i === 1 ? 'true' : 'false');
+                                filter_var($v, FILTER_VALIDATE_BOOLEAN);
 
-                                //filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                            }
+                            }// else {
 
                             $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
+                            //}
                         }
                     }
 
