@@ -83,11 +83,11 @@
                 foreach ($this->_initialData as $k => $v)
                 {
                     foreach ($v as $_k => $_v)
-                    {
+                    {echo $_k;
                         if (in_array($_k, $this->_schema))
                         {
                             $val = $_v;
-var_dump($_v);
+
                             if ($this->_schema[$_k] == 5)
                             {
                                 $val = boolval($_v);
