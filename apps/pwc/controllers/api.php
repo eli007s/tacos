@@ -75,7 +75,7 @@
                 $statement->bindParam(':' . $k, $v);
             }
 
-            foreach ($this->_initialData as $k => $v)
+            foreach ($this->_initialData[0] as $k => $v)
             {
                 if (in_array($k, $this->_schema))
                 {
