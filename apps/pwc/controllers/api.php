@@ -127,8 +127,13 @@
 
                     parse_str(file_get_contents("php://input"), $data);
                     echo 'update 🌮';
-                    $data = json_decode($data, true);
-                    echo '<pre>', print_r($data, true), '</pre>';
+
+                    if (is_array($data))
+                    {
+                        echo '<pre>', print_r($data, true), '</pre>';
+                    }
+
+                    //echo '<pre>', print_r($data, true), '</pre>';
 
                 break;
 
