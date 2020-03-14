@@ -127,6 +127,7 @@
 
                     parse_str(file_get_contents("php://input"), $data);
                     echo 'update 🌮';
+                    $data = json_decode($data, true);
                     echo '<pre>', print_r($data, true), '</pre>';
 
                 break;
