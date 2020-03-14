@@ -75,11 +75,11 @@
 
                 foreach ($this->_initialData as $k => $v)
                 {
-                    $statement = $this->_db->prepare($insert);
+                    $statement[k] = $this->_db->prepare($insert);
 
                     foreach ($this->_schema as $_k => $_v)
                     {
-                        $statement->bindParam(':' . $_k, $_v);
+                        $statement[$k]->bindParam(':' . $_k, $_v);
                     }
 
                     foreach ($v as $_j => $_i)
@@ -92,18 +92,18 @@
                             {
                                 $val = ((int)$_i === 1 ? 'true' : 'false');
 
-                                filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                                filter_var($val, FILTER_VALIDATE_BOOLEAN);
 
                             } else {
 
                                 $val = (string)$_i;
                             }
 
-                            $statement->bindValue(':' . $_j, $val);
+                            $statement[$k]->bindValue(':' . $_j, $val);
                         }
                     }
 
-                    $statement->execute();
+                    $statement[$k]->execute();
                 }
 
                 $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
