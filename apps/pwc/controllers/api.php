@@ -57,7 +57,7 @@
 
         private function _seed()
         {
-            $statement = $this->_db->prepare('CREATE TABLE tacos (
+            $statement = $this->_db->exec('CREATE TABLE tacos (
                 id INTEGER PRIMARY KEY,
                 name VARCHAR,
                 tortilla VARCHAR,
@@ -66,9 +66,9 @@
                 soft BOOLEAN
             )');
             
-            $statement->execute();
+            //$statement->execute();
             
-            echo '<pre>', print_r($statement->errorInfo(), true);
+            //echo '<pre>', print_r($statement->errorInfo(), true);
 
             $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
