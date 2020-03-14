@@ -74,16 +74,18 @@
             {
                 $statement->bindParam(':' . $k, $v);
             }
-echo '<pre>', print_r($this->_initialData, true), '</pre>';
-            foreach ($this->_initialData[0] as $k => $v)
+
+            foreach ($this->_initialData[0] as $k)
             {
-                if (in_array($k, $this->_schema))
+                foreach ($k as $_k => $_v)
                 {
-                    echo ':' . $k . ' :: ' . $v;
-                    //$statement->bindValue(':' . $k, $v);
+                    if (in_array($k, $this->_schema))
+                    {
+                        $statement->bindValue(':' . $_k, $_v);
+                    }
                 }
 
-                //$statement->execute();
+                $statement->execute();
             }
         }
 
