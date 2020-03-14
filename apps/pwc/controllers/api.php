@@ -126,6 +126,8 @@
                 case 'put':
 
                     echo 'update 🌮';
+                    echo '<pre>', print_r($_POST, true), '</pre>';
+                    echo '<pre>', print_r($_PUT, true), '</pre>';
 
                 break;
 
@@ -189,5 +191,10 @@
             }
 
             return ['tacos' => $results];
+        }
+
+        private function _updateTaco($data)
+        {
+            //
         }
     }
