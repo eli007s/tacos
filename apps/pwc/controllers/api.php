@@ -84,8 +84,8 @@
                 {print_r($k);
                     foreach ($k as $_k => $_v)
                     {//echo '______'.$k.'__'.$_k;
-                        if (in_array($_k, $this->_schema))
-                        {
+                        //if (in_array($_k, $this->_schema))
+                        //{
                             $val = $_v;
 
                             if ($k == 5)
@@ -99,7 +99,7 @@
 
                             echo "\nbindValue::$_k = $val\n";
                             $statement->bindValue(':' . $_k, $val);
-                        }
+                        //}
                     }
 
                     $statement->execute();
