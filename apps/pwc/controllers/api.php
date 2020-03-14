@@ -57,7 +57,7 @@
 
         private function _seed()
         {
-            $this->_db->exec('CREATE TABLE IF NOT EXISTS "tacos" (
+            $statement = $this->_db->prepare('CREATE TABLE IF NOT EXISTS "tacos" (
                 "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 "name" VARCHAR,
                 "tortilla" VARCHAR,
@@ -65,6 +65,10 @@
                 "vegetarian" BOOLEAN,
                 "soft" BOOLEAN
             )');
+            
+            $statement->execute();
+            
+            echo '<pre>', print_r($statement->errorInfo(), true);
 
             $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
