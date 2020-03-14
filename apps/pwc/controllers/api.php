@@ -90,8 +90,8 @@
 
                             if ($this->_schema[$_k] === 5)
                             {
-                                filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-                                $val = $_v;
+                                //filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                                $val = json_decode($_v, true);
                                 //$val = strlen($_v) === 0 ? false : true;
 
 
