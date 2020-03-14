@@ -129,6 +129,7 @@
 
                     if (is_array($data))
                     {
+                        $data = array_keys($data)[0];
                         echo '<pre>', print_r($data, true), '</pre>';
                     }
 
