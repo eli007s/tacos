@@ -45,8 +45,6 @@
             $this->_db = new PDO('sqlite:' . __DIR__ . '/tacos.sqlite3');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $this->_seed();
         }
 
         public function indexAction()
@@ -59,61 +57,61 @@
             //$this->_tacos();
         }
 
-        private function _seed()
+        private function seedAction()
         {
             try
             {
                 $this->_db->exec('CREATE TABLE IF NOT EXISTS ' . $this->_table . ' (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                name VARCHAR(160) NOT NULL,
-                tortilla VARCHAR(160) NOT NULL,
-                toppings TEXT NOT NULL,
-                vegetarian BOOLEAN NOT NULL,
-                soft BOOLEAN NOT NULL
-            )');
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    name VARCHAR(160) NOT NULL,
+                    tortilla VARCHAR(160) NOT NULL,
+                    toppings TEXT NOT NULL,
+                    vegetarian BOOLEAN NOT NULL,
+                    soft BOOLEAN NOT NULL
+                )');
 
-            $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
-            $results = $statement->fetch(\PDO::FETCH_ASSOC);
+                $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
+                $results = $statement->fetch(\PDO::FETCH_ASSOC);
 
-            echo '<pre>', print_r($results, true), '</pre>';
+                echo '<pre>', print_r($results, true), '</pre>';
 
-            $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
+                $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
-            $statement = $this->_db->prepare($insert);
+                $statement = $this->_db->prepare($insert);
 
-            foreach ($this->_schema as $k => $v)
-            {
-                $statement->bindParam(':' . $k, $v);
-            }
-
-            foreach ($this->_initialData as $k)
-            {
-                foreach ($k as $_k => $_v)
+                foreach ($this->_schema as $k => $v)
                 {
-                    if (in_array($k, $this->_schema))
-                    {
-                        $val = $_v;
-
-                        if (is_bool($val))
-                        {
-                            $val = boolval($val);
-                        }
-
-                        $statement->bindValue(':' . $_k, $val);
-                    }
+                    $statement->bindParam(':' . $k, $v);
                 }
 
-                $statement->execute();
-            }
+                foreach ($this->_initialData as $k)
+                {
+                    foreach ($k as $_k => $_v)
+                    {
+                        if (in_array($k, $this->_schema))
+                        {
+                            $val = $_v;
 
-            echo '<pre>', print_r($statement->errorInfo(), true);
+                            if (is_bool($val))
+                            {
+                                $val = boolval($val);
+                            }
+
+                            $statement->bindValue(':' . $_k, $val);
+                        }
+                    }
+
+                    $statement->execute();
+                }
+
+                echo '<pre>', print_r($statement->errorInfo(), true);
+
             } catch (PDOException $e) {
 
                 echo $e->getMessage();
             }
 
-
-            return $this->_initialData;
+            //return $this->_initialData;
         }
 
         private function _tacos()
