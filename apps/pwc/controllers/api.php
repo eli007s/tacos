@@ -106,8 +106,8 @@
                     $statement[$k]->execute();
                 }
 
-                $statement = $this->_db->exec('SELECT * FROM ' . $this->_table);
-                $results = $statement->fetch(\PDO::FETCH_ASSOC);
+                $statement = $this->_db->prepare('SELECT * FROM ' . $this->_table);
+                $results = $statement->execute(\PDO::FETCH_ASSOC);
 
                 echo '<pre>', print_r($statement, true), '</pre>';
 
