@@ -208,9 +208,10 @@
                 $statement = $this->_db->prepare($query);
 
                 $statement->bindValue(':name', $data['_taco'], PDO::PARAM_STR);
-                $statement->execute();
-                $taco = $statement->fetch();
+                //$statement->execute();
 
+                //$taco = $statement->fetch();
+var_dump($statement->execute());
                 //if ($statement->execute())
                 //{
                     $taco = $statement->fetch();
@@ -225,7 +226,7 @@
                         }
                     }
 
-                    $query = rtrim($query, ',') . ' WHERE name = :taco';
+                    $query = rtrim($query, ',') . ' WHERE id = :id';
 
                     $statement = $this->_db->prepare($query);
 
@@ -237,7 +238,7 @@
                         }
                     }
 
-                    $statement->bindValue(':taco', $data['_taco'], PDO::PARAM_STR);
+                    $statement->bindValue(':id', $taco['id'], PDO::PARAM_STR);
 
                     $statement->execute();
 
