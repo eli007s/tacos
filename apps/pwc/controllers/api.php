@@ -125,9 +125,9 @@
             {
                 case 'put':
 
+                    parse_str(file_get_contents("php://input"), $data);
                     echo 'update 🌮';
-                    echo '<pre>', print_r($_POST, true), '</pre>';
-                    echo '<pre>', print_r($_PUT, true), '</pre>';
+                    echo '<pre>', print_r($data, true), '</pre>';
 
                 break;
 
