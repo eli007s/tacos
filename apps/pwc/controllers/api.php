@@ -173,7 +173,7 @@
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
-echo $query;
+
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '' && $where != '')
@@ -217,7 +217,7 @@ echo $query;
                     }
 
                     $query = rtrim($query, ',') . ' WHERE `id` = :id';
-print_r($taco);
+
                     $statement = $this->_db->prepare($query);
 
                     foreach ($data as $k => $v)
