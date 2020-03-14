@@ -91,8 +91,10 @@
                             if ($this->_schema[$_k] === 5)
                             {
                                 //filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-                                $val = json_decode($_v, true);
-                                //$val = strlen($_v) === 0 ? false : true;
+                                //$val = json_decode($_v, true);
+                                $val = $_v === 1 ? 'true' : 'false';
+
+                                filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
 
                             echo "\nbindValue::$_k = $val\n";
