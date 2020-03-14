@@ -207,7 +207,7 @@
                 if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
-
+print_r($data);
                     foreach ($data as $k => $v)
                     {
                         if (array_key_exists($k, $this->_schema))
