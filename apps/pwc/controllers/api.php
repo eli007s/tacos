@@ -217,10 +217,12 @@
                             {
                                 filter_var($v, FILTER_VALIDATE_BOOLEAN);
 
-                            }// else {
+                                $statement->bindValue(':' . $k, (bool)$v, PDO::PARAM_BOOL);
 
-                            $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
-                            //}
+                            } else {
+
+                                $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
+                            }
                         }
                     }
 
