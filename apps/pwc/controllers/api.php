@@ -47,6 +47,8 @@
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            header('content-type: application/json');
         }
 
         public function indexAction()
@@ -144,13 +146,11 @@
 
                 break;
 
-                case 'GET':
+                case 'get':
 
                     $tacos = $this->_listTacos();
 
-                    echo '<pre>', print_r($tacos, true), '</pre>';
-
-                    return '';
+                    echo $tacos;
 
                 default:
 
@@ -173,14 +173,11 @@
 
             } catch (PDOException $e) {
 
-                $code = $e->getCode();
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 
-                if ($code === 'HY000')
-                {
-                    return $this->_seed();
-                }
+                exit;
             }
 
-            return $results;
+            return ['tacos' => $results];
         }
     }
