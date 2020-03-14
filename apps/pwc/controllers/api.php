@@ -58,7 +58,7 @@
             //$this->_tacos();
         }
 
-        private function seedAction()
+        public function seedAction()
         {
             try
             {
