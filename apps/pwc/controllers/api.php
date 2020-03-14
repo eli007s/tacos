@@ -87,6 +87,8 @@
 
                 $statement->execute();
             }
+
+            return $this->_initialData;
         }
 
         private function _tacos()
@@ -139,14 +141,13 @@
                 return $statement->execute();
 
             } catch (PDOException $e) {
+
                 $code = $e->getCode();
 
                 if ($code === 'HY000')
                 {
-                    $this->_seed();
+                    return $this->_seed();
                 }
-
-                $this->_listTacos();
             }
 
             return [];
