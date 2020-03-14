@@ -2,6 +2,8 @@
 
     class Api_Controller
     {
+        private $_table = 'tacos';
+
         private $_db = null;
         private $_schema = [
             'name' => PDO::PARAM_STR,
@@ -43,6 +45,8 @@
             $this->_db = new PDO('sqlite:' . __DIR__ . '/tacos.sqlite3');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $this->_seed();
         }
 
         public function indexAction()
@@ -52,12 +56,14 @@
 
         public function tacosAction()
         {
-            $this->_tacos();
+            //$this->_tacos();
         }
 
         private function _seed()
         {
-            $this->_db->exec('CREATE TABLE IF NOT EXISTS tacos (
+            try
+            {
+                $this->_db->exec('CREATE TABLE IF NOT EXISTS ' . $this->_table . ' (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name VARCHAR(160) NOT NULL,
                 tortilla VARCHAR(160) NOT NULL,
@@ -66,7 +72,7 @@
                 soft BOOLEAN NOT NULL
             )');
 
-            $statement = $this->_db->query('SELECT * FROM tacos');
+            $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
             $results = $statement->fetch(\PDO::FETCH_ASSOC);
 
             echo '<pre>', print_r($results, true), '</pre>';
@@ -101,6 +107,11 @@
             }
 
             echo '<pre>', print_r($statement->errorInfo(), true);
+            } catch (PDOException $e) {
+
+                echo $e->getMessage();
+            }
+
 
             return $this->_initialData;
         }
