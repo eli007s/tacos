@@ -161,7 +161,7 @@
                 }
         }
 
-        private function _listTacos($taco = '')
+        private function _listTacos($taco = '', $where = 'name')
         {
             $results = [];
 
@@ -171,14 +171,14 @@
 
                 if ($taco != '')
                 {
-                    $query .= ' WHERE `name` = :name';
+                    $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
 
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '')
                 {
-                    $statement->bindValue(':name', $taco, PDO::PARAM_STR);
+                    $statement->bindValue(':' . $where, $taco, PDO::PARAM_STR);
                 }
 
                 if ($statement->execute())
@@ -228,7 +228,7 @@
 
                 $statement->execute();
 
-                $results = $this->_listTacos($data['_taco']);
+                $results = $this->_listTacos($statement->lastInsertId, 'id');
 
             } catch (PDOException $e) {
 
