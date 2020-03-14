@@ -216,8 +216,8 @@
                         }
                     }
 
-                    $query = rtrim($query, ',') . ' WHERE id = :id';
-echo $query;
+                    $query = rtrim($query, ',') . ' WHERE `id` = :id';
+print_r($taco);
                     $statement = $this->_db->prepare($query);
 
                     foreach ($data as $k => $v)
