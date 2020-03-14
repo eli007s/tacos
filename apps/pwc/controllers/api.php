@@ -74,7 +74,7 @@
             {
                 $statement->bindParam(':' . $k, $v);
             }
-
+echo '<pre>', print_r($this->_initialData, true), '</pre>';
             foreach ($this->_initialData[0] as $k => $v)
             {
                 if (in_array($k, $this->_schema))
