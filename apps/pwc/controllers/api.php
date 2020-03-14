@@ -90,8 +90,9 @@
 
                             if ($this->_schema[$_k] === 5)
                             {
-                                //$val = filter_var($_v, FILTER_VALIDATE_BOOLEAN);
-                                $val = strlen($_v) === 0 ? false : true;
+                                filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                                $val = $_v;
+                                //$val = strlen($_v) === 0 ? false : true;
 
 
                             echo "\nbindValue::$_k = $val\n";
