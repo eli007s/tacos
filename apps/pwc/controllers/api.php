@@ -109,7 +109,7 @@
                 $statement = $this->_db->query('SELECT * FROM ' . $this->_table);
                 $results = $statement->fetch(\PDO::FETCH_ASSOC);
 
-                echo '<pre>', print_r($results, true), '</pre>';
+                echo '<pre>', print_r($statement, true), '</pre>';
 
             } catch (PDOException $e) {
 
