@@ -241,6 +241,10 @@ print_r($taco);
                     $statement->execute();
 
                     $results = $this->_listTacos($taco['id'], 'id');
+
+                } else {
+
+                    echo json_encode(['status' => 'error', 'message' => 'Taco ' . $data['_taco'] . ' not found.']);
                 }
 
             } catch (PDOException $e) {
