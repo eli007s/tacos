@@ -68,7 +68,7 @@
             
             $statement->execute();
             
-            //echo '<pre>', print_r($statement->errorInfo(), true);
+            echo '<pre>', print_r($statement->errorInfo(), true);
 
             /*$insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
