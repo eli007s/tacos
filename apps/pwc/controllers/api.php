@@ -88,7 +88,7 @@
                         {
                             $val = $_v;
 
-                            if ($this->_schema[$_k] == 5)
+                            if ($this->_schema[$_k] === 5)
                             {
                                 $val = filter_var($_v, FILTER_VALIDATE_BOOLEAN);
 
