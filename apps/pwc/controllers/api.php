@@ -126,9 +126,9 @@
                 case 'put':
 
                     parse_str(file_get_contents("php://input"), $data);
-                    print_r($data);
+
                     $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
-                    print_r($data);
+
                     $taco = $this->_updateTaco($data);
 
                     echo json_encode($taco);
@@ -138,17 +138,6 @@
                 case 'delete':
 
                     echo 'delete 🌮';
-
-                break;
-
-                case 'post':
-
-                    $this->_db->exec('BEGIN');
-
-                    $this->_db->query('INSERT INTO "tacos" ("name", "tortilla", "toppings", "vegetarian", "soft")
-                    VALUES (' . $_POST['name'] . ', ' . $_POST['tortilla'] . ', ' . $_POST['toppings'] . ', ' . $_POST['vegetarian'] . ',' . $_POST['soft'] . ')');
-
-                    echo 'add 🌮s';
 
                 break;
 
@@ -207,7 +196,7 @@
                 if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
-//print_r($data);
+
                     foreach ($data as $k => $v)
                     {
                         if (array_key_exists($k, $this->_schema))
@@ -217,7 +206,7 @@
                     }
 
                     $query = rtrim($query, ',') . ' WHERE `id` = :id';
-echo $query;
+
                     $statement = $this->_db->prepare($query);
 
                     foreach ($data as $k => $v)
