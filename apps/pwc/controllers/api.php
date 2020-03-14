@@ -208,14 +208,12 @@
                 $statement = $this->_db->prepare($query);
 
                 $statement->bindValue(':name', $data['_taco'], PDO::PARAM_STR);
-                //$statement->execute();
+                $statement->execute();
 
-                //$taco = $statement->fetch();
-var_dump($statement->execute());
-                //if ($statement->execute())
-                //{
-                    $taco = $statement->fetch();
-
+                $taco = $statement->fetch();
+print_r($taco);
+                if (!empty($taco))
+                {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
 
                     foreach ($data as $k => $v)
@@ -243,7 +241,7 @@ var_dump($statement->execute());
                     $statement->execute();
 
                     $results = $this->_listTacos($taco['id'], 'id');
-                //}
+                }
 
             } catch (PDOException $e) {
 
