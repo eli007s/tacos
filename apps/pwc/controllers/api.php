@@ -203,8 +203,8 @@
             try
             {
                 $taco = $this->_listTacos($data['_taco'], 'name');
-print_r($taco);
-                if ($taco['status'] == 'sucess')
+
+                if ($taco['status'] == 'success')
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
 
@@ -257,7 +257,7 @@ print_r($taco);
             {
                 $taco = $this->_listTacos($data['_taco'], 'name');
 
-                if ($taco['status'] == 'sucess')
+                if ($taco['status'] == 'success')
                 {
                     $query = 'DELETE FROM ' . $this->_table . ' WHERE id = :id';
 
