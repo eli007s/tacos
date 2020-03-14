@@ -173,7 +173,7 @@
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
-
+echo $query;
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '')
@@ -212,7 +212,7 @@
                 if ($statement->execute())
                 {
                     $taco = $statement->fetch();
-print_r($taco);
+
                     $query = 'UPDATE ' . $this->_table . ' SET ';
 
                     foreach ($data as $k => $v)
