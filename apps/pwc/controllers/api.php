@@ -127,7 +127,7 @@
 
                     parse_str(file_get_contents("php://input"), $data);
 
-                    $data['taco'] = $taco;
+                    $data['_taco'] = utf8_decode(urldecode($taco));
 
                     $this->_updateTaco($data);
 
