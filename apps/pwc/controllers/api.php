@@ -173,7 +173,7 @@
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
-echo $query;
+echo $taco;
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '')
@@ -239,7 +239,7 @@ echo $query;
 
                     $statement->execute();
 
-                    $results = $this->_listTacos($this->_db->lastInsertId(), 'id');
+                    $results = $this->_listTacos($taco['id'], 'id');
                 }
 
             } catch (PDOException $e) {
