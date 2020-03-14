@@ -120,8 +120,8 @@
         }
 
         private function _tacos($taco = '')
-        {echo $_SERVER['REQUEST_METHOD'];
-            switch ($_SERVER['REQUEST_METHOD'])
+        {
+            switch (strtolower($_SERVER['REQUEST_METHOD']))
             {
                 case 'put':
 
