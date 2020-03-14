@@ -92,9 +92,9 @@
                             {
                                 //filter_var($_v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
                                 //$val = json_decode($_v, true);
-                                $val = ($_v === 1 ? 'true' : 'false');
+                                $val = ((int)$_v === 1 ? 'true' : 'false');
 
-                                //filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                                filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
                                 echo "\nbindValue::$_k = $val => $_v => ".((int)$_v === 1 ? 'true' : 'false')."\n";
 
