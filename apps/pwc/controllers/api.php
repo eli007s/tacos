@@ -131,9 +131,9 @@
 
                     $this->_updateTaco($data);
 
-                    $tacos = $this->_listTacos($taco);
+                    $tacos = $this->_listTacos($data['_taco']);
 
-                    echo json_encode($data['_taco']);
+                    echo json_encode($tacos);
 
                 break;
 
