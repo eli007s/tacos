@@ -96,7 +96,7 @@
 
                                 filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
-                                echo "\nbindValue::$_k = $val => $_v => ($_v === 1 ? 'true' : 'false')\n";
+                                echo "\nbindValue::$_k = $val => $_v => {($_v === 1 ? 'true' : 'false')}\n";
 
                             } else {
 
