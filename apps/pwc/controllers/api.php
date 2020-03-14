@@ -173,7 +173,7 @@
                 {
                     $query .= ' WHERE `' . $where . '` = :' . $where;
                 }
-
+echo $query;
                 $statement = $this->_db->prepare($query);
 
                 if ($taco != '' && $where != '')
@@ -204,7 +204,7 @@
             {
                 $taco = $this->_listTacos($data['_taco'], 'name');
 
-                if ($taco['status'] == 'success')
+                if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
                     $query = 'UPDATE ' . $this->_table . ' SET ';
 
