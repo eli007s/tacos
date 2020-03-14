@@ -57,13 +57,13 @@
 
         private function _seed()
         {
-            $statement = $this->_db->prepare('CREATE TABLE "tacos" (
-                "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                "name" VARCHAR,
-                "tortilla" VARCHAR,
-                "toppings" TEXT,
-                "vegetarian" BOOLEAN,
-                "soft" BOOLEAN
+            $statement = $this->_db->prepare('CREATE TABLE tacos (
+                id INTEGER PRIMARY KEY,
+                name VARCHAR,
+                tortilla VARCHAR,
+                toppings TEXT,
+                vegetarian BOOLEAN,
+                soft BOOLEAN
             )');
             
             $statement->execute();
