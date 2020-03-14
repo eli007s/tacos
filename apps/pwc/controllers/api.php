@@ -222,13 +222,9 @@
                 {
                     if (array_key_exists($k, $this->_schema))
                     {
-                        $query .= '`' . $k . '` = :' . $k . ',';
-
                         $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
                     }
                 }
-
-                $query .= ' WHERE `name` = :name';
 
                 $statement->bindValue(':taco', $data['taco'], PDO::PARAM_STR);
 echo $query;
