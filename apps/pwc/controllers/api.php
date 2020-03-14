@@ -206,16 +206,7 @@
                     {
                         if (array_key_exists($k, $this->_schema))
                         {
-                            if ($v == 'true' || $v == 'false')
-                            {
-                                //filter_var($v, FILTER_VALIDATE_BOOLEAN);
-echo boolVal($v)."\n";
-                                $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_STR);
-
-                            } else {
-
-                                $statement->bindValue(':' . $k, $v, $this->_schema[$k]);
-                            }
+                            $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_STR);
                         }
                     }
 
