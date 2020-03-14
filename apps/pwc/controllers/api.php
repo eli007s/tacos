@@ -126,11 +126,11 @@
                 case 'put':
 
                     parse_str(file_get_contents("php://input"), $data);
-                    echo 'update 🌮';
 
                     if (is_array($data))
                     {
                         echo '<pre>', print_r($data, true), '</pre>';
+                        echo json_encode($data);
                     }
 
                     //echo '<pre>', print_r($data, true), '</pre>';
