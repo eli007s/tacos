@@ -231,10 +231,10 @@
                 $query .= ' WHERE `name` = :name';
 
                 $statement->bindValue(':taco', $data['taco'], PDO::PARAM_STR);
+echo $query;
+                //$statement = $this->_db->prepare($query);
 
-                $statement = $this->_db->prepare($query);
-
-                $statement->execute();
+                //$statement->execute();
 
             } catch (PDOException $e) {
 
