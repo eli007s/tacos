@@ -146,16 +146,12 @@
 
                 break;
 
-                case 'get':
+                default:
 
                     $tacos = $this->_listTacos();
 
                     echo $tacos;
-
-                default:
-
-                    echo '🌮';
-            }
+                }
         }
 
         private function _listTacos()
