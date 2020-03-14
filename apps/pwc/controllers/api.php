@@ -228,7 +228,7 @@
 
                 $statement->execute();
 
-                $results = $this->_listTacos($statement->lastInsertId, 'id');
+                $results = $this->_listTacos($statement->lastInsertId(), 'id');
 
             } catch (PDOException $e) {
 
