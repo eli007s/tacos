@@ -40,12 +40,12 @@
 
         public function tacosAction()
         {
+            $this->_db = new PDO('sqlite:tacos.sqlite3');
+
+            $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             if (!file_exists('tacos.sqlite3'))
             {
-                $this->_db = new PDO('sqlite:tacos.sqlite3');
-
-                $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
                 $this->_db->exec('CREATE TABLE IF NOT EXISTS "tacos" (
                     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     "name" VARCHAR,
