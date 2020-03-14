@@ -127,8 +127,13 @@
 
                     parse_str(file_get_contents("php://input"), $data);
 
-                    echo json_encode($data);
-                    //echo '<pre>', print_r($data, true), '</pre>';
+                    $data['taco'] = $taco;
+
+                    $this->_updateTaco($data);
+
+                    $tacos = $this->_listTacos($taco);
+
+                    echo json_encode($tacos);
 
                 break;
 
@@ -175,13 +180,12 @@
 
                 if ($taco != '')
                 {
-                    $statement->bindParam(':name', $taco);
-                    $statement->bindValue(':name',  $taco);
+                    $statement->bindValue(':name', $taco, PDO::PARAM_STR);
                 }
 
                 if ($statement->execute())
                 {
-                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    $results = $statement->fetchAll();
                 }
 
             } catch (PDOException $e) {
@@ -196,6 +200,47 @@
 
         private function _updateTaco($data)
         {
-            //
+            $results = [];
+
+            try
+            {
+                $query = 'UPDATE ' . $this->_table . ' SET ';
+
+                foreach ($data as $k => $v)
+                {
+                    if (array_key_exists($k, $this->_schema))
+                    {
+                        $query .= '`' . $k . '` = :' . $k . ',';
+                    }
+                }
+
+                $query = rtrim($query, ',') . ' WHERE name = :taco';
+
+                $statement = $this->_db->prepare($query);
+
+                foreach ($data as $k => $v)
+                {
+                    if (array_key_exists($k, $this->_schema))
+                    {
+                        $query .= '`' . $k . '` = :' . $k . ',';
+
+                        $statement->bindValue(':' . $k, $v, $this->_scheme[$k]);
+                    }
+                }
+
+                $query .= ' WHERE `name` = :name';
+
+                $statement->bindValue(':taco', $data['taco'], PDO::PARAM_STR);
+
+                $statement = $this->_db->prepare($query);
+
+                $statement->execute();
+
+            } catch (PDOException $e) {
+
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+                exit;
+            }
         }
     }
