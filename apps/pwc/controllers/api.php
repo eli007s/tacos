@@ -215,7 +215,7 @@
                         {
                             if ($v == 'true' || $v == 'false')
                             {
-                                filter_var($v, FILTER_VALIDATE_BOOLEAN);
+                                //filter_var($v, FILTER_VALIDATE_BOOLEAN);
 
                                 $statement->bindValue(':' . $k, $v, PDO::PARAM_BOOL);
 
