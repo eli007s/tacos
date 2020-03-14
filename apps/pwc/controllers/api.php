@@ -38,52 +38,57 @@
             ]
         ];
 
-        public function indexAction()
-        {
-            echo '🌮';
-        }
-
-        public function tacosAction()
+        public function __construct()
         {
             $this->_db = new PDO('sqlite:tacos.sqlite3');
 
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            if (!file_exists('tacos.sqlite3'))
-            {
-                $this->_db->exec('CREATE TABLE IF NOT EXISTS "tacos" (
-                    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                    "name" VARCHAR,
-                    "tortilla" VARCHAR,
-                    "toppings" TEXT,
-                    "vegetarian" BOOLEAN,
-                    "soft" BOOLEAN
-                )');
-
-                $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
-
-                $statement = $this->_db->prepare($insert);
-
-                foreach ($this->_schema as $k => $v)
-                {
-                    $statement->bindParam(':' . $k, $v);
-                }
-
-                foreach ($this->_initialData as $k => $v)
-                {
-                    if (in_array($k, $this->_schema))
-                    {
-                        $statement->bindValue(':' . $k, $v);
-                    }
-
-                    $statement->execute();
-                }
-            }
-
-            $this->_taco('');
+            $acos = $this->_listTacos();
         }
 
-        private function _taco($taco = '')
+        public function indexAction()
+        {
+            echo '🌮';
+        }
+
+        public function seed()
+        {
+            $this->_db->exec('CREATE TABLE IF NOT EXISTS "tacos" (
+                "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "name" VARCHAR,
+                "tortilla" VARCHAR,
+                "toppings" TEXT,
+                "vegetarian" BOOLEAN,
+                "soft" BOOLEAN
+            )');
+
+            $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
+
+            $statement = $this->_db->prepare($insert);
+
+            foreach ($this->_schema as $k => $v)
+            {
+                $statement->bindParam(':' . $k, $v);
+            }
+
+            foreach ($this->_initialData as $k => $v)
+            {
+                if (in_array($k, $this->_schema))
+                {
+                    $statement->bindValue(':' . $k, $v);
+                }
+
+                $statement->execute();
+            }
+        }
+
+        public function tacosAction()
+        {
+            $this->_tacos();
+        }
+
+        private function _tacos()
         {
             switch ($_SERVER['REQUEST_METHOD'])
             {
