@@ -30,7 +30,7 @@
         public function cleanAction()
         {
             // sample text
-            $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSamepleResults.txt');
+            $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSampleResults.txt');
 
             echo $text;
         }
