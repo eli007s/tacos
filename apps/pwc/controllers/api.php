@@ -34,7 +34,7 @@
             $text = htmlentities($text, ENT_QUOTES, "UTF-8");
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("/[^a-zA-Z0-9'-]+/", $text, $matches);
+            preg_match_all("/^([A-Za-z \-]+(?:\'|&#0*39;)*)*[A-Za-z \-]+$/", $text, $matches);
             //$text = explode(' ', $text);
             //$text = str_replace([',', '.', '?'], '', $text);
 
