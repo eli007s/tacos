@@ -34,11 +34,11 @@
 
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("/\w+/", $text, $matches);
+            preg_match_all("#^[a-zA-Z0-9\" *:,.!().?\";\'-]+$#i", $text, $matches);
+            //$text = explode(' ', $text);
+            //$text = str_replace([',', '.', '?'], '', $text);
 
-            echo '<pre>';
-            print_r($matches);
-            echo '</pre>';
+            echo json_encode($matches);
         }
 
         private function _tacos($taco = '')
