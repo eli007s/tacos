@@ -39,10 +39,13 @@
             if (count($matches[0] > 0))
             {
                 // we have content to work with yay
-                foreach ($matches[0] as $word)
+                foreach ($matches[0] as $k => $word)
                 {
-                    echo $word;
+                    $_word = preg_replace('/[RSTLNAEIOU]/i', '', $word);
+
+                    $matches[0][$k] = $_word;
                 }
+
                 echo json_encode($matches[0]);
             }
         }
