@@ -103,7 +103,7 @@
                             }
                         }
 print_r($taco);
-                        $this->_tacos[$i] = $taco;
+                        $this->_tacos['tacos'][$i] = $taco;
 
                         $fp = fopen($this->_db, 'w');
 
