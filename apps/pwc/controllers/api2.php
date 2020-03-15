@@ -51,6 +51,13 @@
 
         private function _listTacos($taco = '', $where = 'name')
         {
-            return $this->_tacos;
+            $return = $this->_tacos;
+
+            if ($taco != '' && $where != '')
+            {
+                $return = array_search($taco, array_column($this->_tacos, $where));
+            }
+
+            return $return;
         }
     }
