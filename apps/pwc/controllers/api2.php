@@ -101,9 +101,9 @@
                             {
                                 $v = (string)$v;
 
-                                if ($v === 'true' || $v === 'false')
+                                if ($v === 'true')
                                 {
-                                    $v = (bool)$v;
+                                    $v = true;
                                 }
 
                                 $taco[$k] = $v;
