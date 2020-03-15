@@ -37,7 +37,7 @@
             preg_match_all("/\w+/", $text, $matches);
 
             echo '<pre>';
-            print_r($matches, true);
+            print_r($matches);
             echo '</pre>';
         }
 
