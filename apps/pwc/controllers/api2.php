@@ -101,7 +101,7 @@
                                 $taco[$k] = $v;
                             }
                         }
-
+print_r($taco);
                         $this->_tacos[$i] = $taco;
 
                         $fp = fopen('db.json', 'w');
