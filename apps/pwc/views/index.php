@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="container">
-        <form action="/clean" method="post">
+        <form action="/api/clean" method="post">
             <textarea class="textarea" name="text"><?php echo isset($_POST['text']) && strlen($_POST['text']) > 0 ? $_POST['text'] : ''; ?></textarea>
             <input type="submit" name="submit" />
         </form>

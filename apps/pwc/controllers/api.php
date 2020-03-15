@@ -41,7 +41,7 @@
             if (count($matches[0] > 0))
             {
                 $clean = [];
-                $json = [];
+                $object = [];
 
                 // we have content to work with yay
                 foreach ($matches[0] as $k => $word)
@@ -61,7 +61,7 @@
 
                 foreach ($clean as $k => $v)
                 {
-                    $json[] = [
+                    $object[] = [
                         'word' => $k,
                         'numberOfUses' => $v
                     ];
@@ -69,10 +69,10 @@
 
                 $fp = fopen($this->_text, 'w');
 
-                fwrite($fp, json_encode($json));
+                fwrite($fp, json_encode($object));
                 fclose($fp);
 
-                return $object;
+                echo json_encode($object);
             }
         }
 
