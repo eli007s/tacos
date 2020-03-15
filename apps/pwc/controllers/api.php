@@ -34,7 +34,7 @@
 
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("/\w+'-/", $text, $matches);
+            preg_match_all("/(\w+('|-\w+)*)/i", $text, $matches);
 
             echo '<pre>';
             print_r($matches);
