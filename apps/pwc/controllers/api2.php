@@ -50,7 +50,7 @@
         }
 
         private function _listTacos($taco = '')
-        {
+        {echo $taco;
             $return = $this->_tacos;
 
             if ($taco != '')
