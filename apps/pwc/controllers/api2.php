@@ -101,9 +101,9 @@
                             {
                                 $v = (string)$v;
 
-                                if ($v === 'true')
+                                if ($v === 'true' || $v == 'false')
                                 {
-                                    $v = true;
+                                    $v = filter_var($v, FILTER_VALIDATE_BOOLEAN);;
                                 }
 
                                 $taco[$k] = $v;
