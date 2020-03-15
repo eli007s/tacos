@@ -31,10 +31,10 @@
         {
             // sample text
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
-
+            $text = htmlentities($text, ENT_QUOTES, "UTF-8");
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("#^[a-zA-Z0-9\" *:,.!().?\";\'-]+$#i", $text, $matches);
+            preg_match_all("/^[A-Z'-]{2,50}$/i", $text, $matches);
             //$text = explode(' ', $text);
             //$text = str_replace([',', '.', '?'], '', $text);
 
