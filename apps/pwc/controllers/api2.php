@@ -115,7 +115,7 @@
                         fwrite($fp, json_encode($this->_tacos));
                         fclose($fp);
 
-                        $return = $this->_tacos;
+                        $return = ['tacos' => $this->_tacos['tacos'][$i]];
 
                         break;
                     }
