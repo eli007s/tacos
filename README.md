@@ -47,4 +47,4 @@ will see the `json` output...
 
 ## Challenge 3
 
-what whichcraft was that???
+what witchcraft was that???
