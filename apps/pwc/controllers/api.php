@@ -47,7 +47,7 @@
 
                     if (strlen($_word) === 0)
                     {
-                        unset($matches[0][$k]);
+                        //unset($matches[0][$k]);
                     }
                 }
 
