@@ -32,9 +32,9 @@
             // sample text
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
 
-            $charsToFind = 'RSTLN AEIOU';
+            $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("/[aouie]/i", $text, $matches);
+            preg_match_all("/\w+/", $text, $matches);
 
             echo '<pre>';
             print_r($matches, true);
