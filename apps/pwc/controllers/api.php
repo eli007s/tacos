@@ -47,7 +47,7 @@
 
                     if (strlen($_word) === 1)
                     {
-                        $clean[] = $_word;
+                        $clean[] = $word;
                     }
                 }
 
