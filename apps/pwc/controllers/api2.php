@@ -99,7 +99,7 @@
                         {
                             if (array_key_exists($k, $taco))
                             {
-                                $v = (string)$v;
+                                //$v = (string)$v;
 
                                 if ($v === 'true' || $v == 'false')
                                 {
