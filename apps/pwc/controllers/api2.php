@@ -51,6 +51,6 @@
 
         private function _listTacos($taco = '', $where = 'name')
         {
-            return ['status' => 'success', 'tacos' => $this->_tacos];
+            return $this->_tacos;
         }
     }
