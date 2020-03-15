@@ -44,6 +44,11 @@
                     $_word = preg_replace('/[RSTLNAEIOU]/i', '', $word);
 
                     $matches[0][$k] = $_word;
+
+                    if (strlen($_word) === 0)
+                    {
+                        unset($matches[0][$k]);
+                    }
                 }
 
                 echo json_encode($matches[0]);
