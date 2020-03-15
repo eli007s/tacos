@@ -39,7 +39,10 @@
             if (count($matches[0] > 0))
             {
                 // we have content to work with yay
-                //
+                foreach ($matches[0] as $word)
+                {
+                    echo $word;
+                }
                 echo json_encode($matches[0]);
             }
         }
