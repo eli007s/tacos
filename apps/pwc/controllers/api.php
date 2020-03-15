@@ -34,11 +34,13 @@
 
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("/(\w+('|-\w+)*)/i", $text, $matches);
+            preg_match_all("/(\w+(['-\w+])*)/i", $text, $matches);
 
-            echo '<pre>';
-            print_r($matches);
-            echo '</pre>';
+            if (count($matches[0] > 0))
+            {
+                // we have content to work with yay
+                //
+            }
         }
 
         private function _tacos($taco = '')
