@@ -4,12 +4,14 @@
     {
         private $_tacos = [];
         private $_db = '';
+        private $_text = '';
 
         public $text = '';
 
         public function __construct()
         {
             $this->_db = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
+            $this->_text = $_SERVER['DOCUMENT_ROOT'] . '/textSampleResults.json';
 
             if (file_exists($this->_db))
             {
@@ -39,7 +41,7 @@
             if (count($matches[0] > 0))
             {
                 $clean = [];
-                $object = [];
+                $json = [];
 
                 // we have content to work with yay
                 foreach ($matches[0] as $k => $word)
@@ -59,13 +61,18 @@
 
                 foreach ($clean as $k => $v)
                 {
-                    $object[] = [
+                    $json[] = [
                         'word' => $k,
                         'numberOfUses' => $v
                     ];
                 }
 
-                echo json_encode($object);
+                $fp = fopen($this->_text, 'w');
+
+                fwrite($fp, json_encode($json));
+                fclose($fp);
+
+                return $object;
             }
         }
 
