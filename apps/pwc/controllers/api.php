@@ -31,8 +31,13 @@
 
         public function cleanAction()
         {
-            // sample text
+            // grab text from the POST or load from file
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
+
+            if (isset($_POST['text']) && strlen($_POST['text']) > 0)
+            {
+                $text = $_POST['text'];
+            }
 
             $charsToFind = 'RSTLNAEIOU';
 
