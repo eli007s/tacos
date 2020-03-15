@@ -5,6 +5,8 @@
         private $_tacos = [];
         private $_db = '';
 
+        public $text = '';
+
         public function __construct()
         {
             $this->_db = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
@@ -23,6 +25,14 @@
         public function tacosAction($taco = '')
         {
             $this->_tacos($taco);
+        }
+
+        public function cleanAction()
+        {
+            // sample text
+            $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSamepleResults.txt');
+
+            echo $text;
         }
 
         private function _tacos($taco = '')
