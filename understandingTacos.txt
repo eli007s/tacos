@@ -1,0 +1,29 @@
+{getList} ' ';5;<1...10>
+
+''' start of function getList takes 3 arguments (i.e. ' ';5;<1...10>)
+^^{{getList}} <><><>
+    ''' local variable list set to the first argument of ' '
+    #list <- #1
+    ''' now this looks like the start of a for loop... or a banana... not sure
+    ''' so for i in 5
+    ++i #2 /
+        ''' total local variable of 1...10
+        ''' okay, its a banana... what the heck is going on here?
+        #total <- #3.#i * 3
+        ''' if total not in 5, 11 or 13
+        (#total !! 5,11,13)
+            ''' append a space (or our first argument) along with
+            ''' the output of split which would reutrn foo or bar
+            #list +<- #1 +<- {split} #total
+    ''' end of loop
+    /
+    ''' return list
+    ^#list
+
+''' start of function split, takes 1 argument
+^^{{split}} <>
+    ''' if the modulus of argument is not 0 then return foo else bar
+    (#1 % 2 >< 0)
+        ^'foo'
+    (OR)
+        ^'bar'

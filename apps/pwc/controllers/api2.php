@@ -1,6 +1,6 @@
 <?php
 
-    class Api_DB_Controller
+    class Api2_Controller
     {
         private $_table = 'tacos';
         private $_database = 'tacos';

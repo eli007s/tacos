@@ -6,8 +6,8 @@
     <title>PWC Clean</title>
     <style>
         .textarea {
-            width: 400px;
-            height: 500px;
+            width: 300px;
+            height: 300px;
         }
     </style>
 </head>
@@ -17,10 +17,6 @@
             <textarea class="textarea" name="text"><?php echo isset($_POST['text']) && strlen($_POST['text']) > 0 ? $_POST['text'] : ''; ?></textarea>
             <input type="submit" name="submit" />
         </form>
-
-        <pre>
-        <?php echo ($json != '' ? print_r($json, true) : ''); ?>
-        </pre>
     </div>
 </body>
 </html>
