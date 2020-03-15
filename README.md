@@ -1,8 +1,10 @@
 give permissons of `0755` to `db.json` and `textSampleResults.json`
 
 PHP 5.6+ needed for `api`
+
 PHP modules `php-json` `php-pdo` needed to run api
-mysqllite needed as well
+
+sqlite needed as well
 
 GET - `/api/tacos`
 
