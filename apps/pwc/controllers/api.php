@@ -65,6 +65,7 @@
         {
             try
             {
+                $this->_db->exec('DROP TABLE IF EXISTS ' . $this->_table);
                 $this->_db->exec('CREATE TABLE IF NOT EXISTS ' . $this->_table . ' (
                     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     name VARCHAR(160) NOT NULL,
