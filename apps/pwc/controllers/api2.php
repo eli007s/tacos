@@ -82,7 +82,6 @@
         public function _updateTaco($taco, $data)
         {
             $return = $this->_tacos;
-            $index  = '';
 
             if ($taco != '')
             {
@@ -97,10 +96,9 @@
 
                         foreach ($data as $k => $v)
                         {
+                            // let's check if the key being passed exists
                             if (array_key_exists($k, $taco))
                             {
-                                //$v = (string)$v;
-
                                 if ($v === 'true' || $v == 'false')
                                 {
                                     $v = filter_var($v, FILTER_VALIDATE_BOOLEAN);;
@@ -117,9 +115,44 @@
                         fwrite($fp, json_encode($this->_tacos));
                         fclose($fp);
 
+                        $return = $this->_tacos;
+
                         break;
                     }
                 }
             }
+
+            return $return;
+        }
+
+        private function _deleteTaco($taco)
+        {
+            $return = $this->_tacos;
+
+            if ($taco != '')
+            {
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
+
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
+                {
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
+                    {
+                        unset($this->_tacos['tacos'][$i]);
+
+                        $fp = fopen($this->_db, 'w');
+
+                        fwrite($fp, json_encode($this->_tacos));
+                        fclose($fp);
+
+                        $return = $this->_tacos;
+
+                        break;
+                    }
+                }
+            }
+
+            return $return;
         }
     }
+}
