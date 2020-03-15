@@ -6,7 +6,12 @@
 
         public function __construct()
         {
-            $this->_tacos = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/db.json'), true);
+            $file = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
+
+            if (file_exists($file))
+            {
+                $this->_tacos = json_decode(file_get_contents($file), true);
+            }
         }
 
         public function tacosAction($taco = '')
