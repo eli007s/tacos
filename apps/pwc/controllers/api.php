@@ -32,7 +32,11 @@
             // sample text
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
 
-            echo $text;
+            preg_match_all('((?:[a-zA-Z]+[0-9]|[0-9]+[a-zA-Z])[a-zA-Z0-9]*)', $text, $match);
+
+            echo '<pre>';
+            print_r($match, true);
+            echo '</pre>';
         }
 
         private function _tacos($taco = '')
