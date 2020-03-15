@@ -54,7 +54,7 @@
                 // now that we have our filtered array, lets grab unique words and tally them up
                 $clean = array_count_values($clean);
 
-                rsort($clean);
+                arsort($clean);
                 /*$clean = array_map(function($word) {
 
                     $arr = [
