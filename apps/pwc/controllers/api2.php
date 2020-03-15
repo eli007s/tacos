@@ -30,7 +30,13 @@
             {
                 case 'put':
 
-                    //
+                    parse_str(file_get_contents("php://input"), $data);
+
+                    $taco = utf8_decode(urldecode(strtok($taco, '?')));
+
+                    $output = $this->_updateTaco($taco, $data);
+
+                    echo json_encode($output);
 
                 break;
 
@@ -55,7 +61,7 @@
 
             if ($taco != '')
             {
-                // let's assume that we could'nt fine a taco. If we do find one, then $return will update.
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
                 $return = ['tacos' => []];
 
                 for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
@@ -70,5 +76,42 @@
             }
 
             return $return;
+        }
+
+        public function _updateTaco($taco, $data)
+        {
+            $return = $this->_tacos;
+            $index  = '';
+
+            if ($taco != '')
+            {
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
+
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
+                {
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
+                    {
+                        $taco = $this->_tacos['tacos'][$i];
+
+                        foreach ($data as $k => $v)
+                        {
+                            if (array_key_exists($k, $taco))
+                            {
+                                $taco[$k] = $v;
+                            }
+                        }
+
+                        $this->_tacos[$i] = $taco;
+
+                        $fp = fopen('db.json', 'w');
+
+                        fwrite($fp, json_encode($this->_tacos));
+                        fclose($fp);
+
+                        break;
+                    }
+                }
+            }
         }
     }
