@@ -14,6 +14,8 @@
                 $contents = utf8_encode($contents);
 
                 $this->_tacos = json_decode($contents, true);
+
+                var_dump($this->_tacos);
             }
         }
 
