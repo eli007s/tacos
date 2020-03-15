@@ -39,6 +39,7 @@
             if (count($matches[0] > 0))
             {
                 $clean = [];
+                $object = [];
 
                 // we have content to work with yay
                 foreach ($matches[0] as $k => $word)
@@ -55,20 +56,16 @@
                 $clean = array_count_values($clean);
 
                 arsort($clean);
-                /*$clean = array_map(function($word) {
 
-                    $arr = [
-                        'word' => $word,
-                        'numberOfUses' => 0
+                foreach ($clean as $k => $v)
+                {
+                    $object[] = [
+                        'word' => $k,
+                        'numberOfUses' => $v
                     ];
+                }
 
-
-
-                    return $arr;
-
-                }, $clean);*/
-
-                echo json_encode($clean);
+                echo json_encode($object);
             }
         }
 
