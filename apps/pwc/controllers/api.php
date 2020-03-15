@@ -31,7 +31,7 @@
         {
             // sample text
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
-            $text = htmlentities($text, ENT_QUOTES, "UTF-8");
+            //$text = htmlentities($text, ENT_QUOTES, "UTF-8");
             $charsToFind = 'RSTLNAEIOU';
 
             preg_match_all("/^([A-Za-z \-]+(?:\'|&#0*39;)*)*[A-Za-z \-]+$/", $text, $matches);
