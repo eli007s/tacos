@@ -55,11 +55,11 @@
 
             if ($taco != '')
             {
-                for ($i = 0; $i < count($this->_tacos); $i++)
-                {echo $this->_tacos[$i]['name'];
-                    if ($this->_tacos[$i]['name'] === $taco)
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
+                {
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
                     {
-                        $return = $this->_tacos[$i];
+                        $return = ['tacos' => $this->_tacos['tacos'][$i]];
 
                         break;
                     }
