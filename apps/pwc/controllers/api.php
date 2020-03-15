@@ -2,115 +2,27 @@
 
     class Api_Controller
     {
-        private $_table = 'tacos';
-        private $_database = 'tacos';
-
-        private $_db = null;
-        private $_schema = [
-            'name',
-            'tortilla',
-            'toppings',
-            'vegetarian',
-            'soft'
-        ];
-        private $_initialData = [
-            [
-                'name' => 'chorizo taco',
-                'tortilla' => 'corn',
-                'toppings' => 'chorizo',
-                'vegetarian' => false,
-                'soft' => true
-            ],[
-                'name' => 'chicken taco',
-                'tortilla' => 'flour',
-                'toppings' => 'chicken',
-                'vegetarian' => false,
-                'soft' => true
-            ], [
-                'name' => 'al pastor taco',
-                'tortilla' => 'corn',
-                'toppings' => 'pork',
-                'vegetarian' => false,
-                'soft' => true
-            ],[
-                'name' => 'veggie taco',
-                'tortilla' => 'spinach',
-                'toppings' => 'veggies',
-                'vegetarian' => true,
-                'soft' => true
-            ]
-        ];
+        private $_tacos = [];
+        private $_db = '';
 
         public function __construct()
         {
-            $this->_db = new PDO('sqlite:' . __DIR__ . '/' . $this->_database . '.db');
+            $this->_db = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
 
-            $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            if (file_exists($this->_db))
+            {
+                $contents = file_get_contents($this->_db);
+                $contents = utf8_encode($contents);
 
-            header('content-type: application/json');
-        }
+                $this->_tacos = json_decode($contents, true);
 
-        public function indexAction()
-        {
-            echo '🌮';
+                header('content-type: application/json');
+            }
         }
 
         public function tacosAction($taco = '')
         {
             $this->_tacos($taco);
-        }
-
-        public function seedAction()
-        {
-            try
-            {
-                $this->_db->exec('DROP TABLE IF EXISTS `' . $this->_table . '`');
-                $this->_db->exec('CREATE TABLE IF NOT EXISTS `' . $this->_table . '` (
-                    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                    `name` VARCHAR(160) NOT NULL,
-                    `tortilla` VARCHAR(160) NOT NULL,
-                    `toppings` TEXT NOT NULL,
-                    `vegetarian` VARCHAR(5) NOT NULL,
-                    `soft` VARCHAR(5) NOT NULL
-                )');
-
-                $insert = 'INSERT INTO tacos (`name`, `tortilla`, `toppings`, `vegetarian`, `soft`) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
-
-                foreach ($this->_initialData as $k => $v)
-                {
-                    $statement[$k] = $this->_db->prepare($insert);
-
-                    foreach ($v as $_j => $_i)
-                    {
-                        if (in_array($_j, $this->_schema))
-                        {
-                            $val = $_i;
-
-                            if (is_bool($_i))
-                            {
-                                $val = ((int)$_i === 1 ? 'true' : 'false');
-
-                            } else {
-
-                                $val = (string)$_i;
-                            }
-
-                            $statement[$k]->bindValue(':' . $_j, $val, PDO::PARAM_STR);
-                        }
-                    }
-
-                    $statement[$k]->execute();
-                }
-
-            } catch (PDOException $e) {
-
-                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-
-                exit;
-            }
-
-            echo json_encode(['status' => 'success']);
         }
 
         private function _tacos($taco = '')
@@ -121,23 +33,21 @@
 
                     parse_str(file_get_contents("php://input"), $data);
 
-                    $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
+                    $taco = utf8_decode(urldecode(strtok($taco, '?')));
 
-                    $taco = $this->_updateTaco($data);
+                    $output = $this->_updateTaco($taco, $data);
 
-                    echo json_encode($taco);
+                    echo json_encode($output);
 
                 break;
 
                 case 'delete':
 
-                    parse_str(file_get_contents("php://input"), $data);
+                    $taco = utf8_decode(urldecode(strtok($taco, '?')));
 
-                    $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
+                    $output = $this->_deleteTaco($taco);
 
-                    $taco = $this->_deleteTaco($data);
-
-                    echo json_encode($taco);
+                    echo json_encode($output);
 
                 break;
 
@@ -150,126 +60,102 @@
                 }
         }
 
-        private function _listTacos($taco = '', $where = 'name')
+        private function _listTacos($taco = '')
         {
-            $results = [];
+            $return = $this->_tacos;
 
-            try
+            if ($taco != '')
             {
-                $query = 'SELECT * FROM `' . $this->_table . '`';
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
 
-                if ($taco != '' && $where != '')
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
                 {
-                    $query .= ' WHERE `' . $where . '` = :' . $where;
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
+                    {
+                        $return = ['tacos' => $this->_tacos['tacos'][$i]];
+
+                        break;
+                    }
                 }
-
-                $statement = $this->_db->prepare($query);
-
-                if ($taco != '' && $where != '')
-                {
-                    $statement->bindValue(':' . $where, $taco, $where == 'id' ? PDO::PARAM_INT : PDO::PARAM_STR);
-                }
-
-                if ($statement->execute())
-                {
-                    $results = $statement->fetchAll();
-                }
-
-            } catch (PDOException $e) {
-
-                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-
-                exit;
             }
 
-            return ['status' => 'success', 'tacos' => $results];
+            return $return;
         }
 
-        private function _updateTaco($data)
+        public function _updateTaco($taco, $data)
         {
-            $results = [];
+            $return = $this->_tacos;
 
-            try
+            if ($taco != '')
             {
-                $taco = $this->_listTacos($data['_taco'], 'name');
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
 
-                if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
                 {
-                    $query = 'UPDATE `' . $this->_table . '` SET ';
-
-                    foreach ($data as $k => $v)
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
                     {
-                        if (in_array($k, $this->_schema))
+                        $taco = $this->_tacos['tacos'][$i];
+
+                        foreach ($data as $k => $v)
                         {
-                            $query .= '`' . $k . '` = :' . $k . ',';
+                            // let's check if the key being passed exists
+                            if (array_key_exists($k, $taco))
+                            {
+                                if ($v === 'true' || $v == 'false')
+                                {
+                                    $v = filter_var($v, FILTER_VALIDATE_BOOLEAN);;
+                                }
+
+                                $taco[$k] = $v;
+                            }
                         }
+
+                        $this->_tacos['tacos'][$i] = $taco;
+
+                        $fp = fopen($this->_db, 'w');
+
+                        fwrite($fp, json_encode($this->_tacos));
+                        fclose($fp);
+
+                        $return = ['tacos' => $this->_tacos['tacos'][$i]];
+
+                        break;
                     }
-
-                    $query = rtrim($query, ',') . ' WHERE `id` = :id';
-
-                    $statement = $this->_db->prepare($query);
-
-                    foreach ($data as $k => $v)
-                    {
-                        if (in_array($k, $this->_schema))
-                        {
-                            $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_STR);
-                        }
-                    }
-
-                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_INT);
-
-                    $statement->execute();
-
-                    $results = $this->_listTacos($taco['tacos'][0]['id'], 'id');
-
-                } else {
-
-                    echo json_encode(['status' => 'error', 'message' => 'Taco ' . $data['_taco'] . ' not found.']);
                 }
-
-            } catch (PDOException $e) {
-
-                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-
-                exit;
             }
 
-            return $results;
+            return $return;
         }
 
-        private function _deleteTaco($data)
+        private function _deleteTaco($taco)
         {
-            $results = [];
+            $return = $this->_tacos;
 
-            try
+            if ($taco != '')
             {
-                $taco = $this->_listTacos($data['_taco'], 'name');
+                // let's assume that we couldn't fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
 
-                if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
+                for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
                 {
-                    $query = 'DELETE FROM `' . $this->_table . '` WHERE `id` = :id';
+                    if ($this->_tacos['tacos'][$i]['name'] === $taco)
+                    {
+                        unset($this->_tacos['tacos'][$i]);
 
-                    $statement = $this->_db->prepare($query);
+                        $fp = fopen($this->_db, 'w');
 
-                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_INT);
+                        fwrite($fp, json_encode($this->_tacos));
+                        fclose($fp);
 
-                    $statement->execute();
+                        $return = $this->_tacos;
 
-                    $results = $this->_listTacos();
-
-                } else {
-
-                    echo json_encode(['status' => 'error', 'message' => 'Taco ' . $data['_taco'] . ' not found.']);
+                        break;
+                    }
                 }
-
-            } catch (PDOException $e) {
-
-                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-
-                exit;
             }
 
-            return $results;
+            return $return;
         }
     }
