@@ -34,7 +34,7 @@
 
             $charsToFind = 'RSTLN AEIOU';
 
-            preg_match_all('/[\w]/i', $text, $match);
+            preg_match_all('/[\w]/', $text, $match);
 
             echo '<pre>';
             print_r($match, true);
