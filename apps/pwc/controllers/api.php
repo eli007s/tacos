@@ -38,20 +38,20 @@
 
             if (count($matches[0] > 0))
             {
+                $clean = [];
+
                 // we have content to work with yay
                 foreach ($matches[0] as $k => $word)
                 {
                     $_word = preg_replace('/[RSTLNAEIOU]/i', '', $word);
 
-                    $matches[0][$k] = $_word;
-
-                    if (strlen($_word) === 0)
+                    if (strlen($_word) === 1)
                     {
-                        //unset($matches[0][$k]);
+                        $clean[] = $_word;
                     }
                 }
 
-                echo json_encode($matches[0]);
+                echo json_encode($clean);
             }
         }
 
