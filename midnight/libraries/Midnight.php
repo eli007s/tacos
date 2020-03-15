@@ -101,7 +101,7 @@
                     $this->to(array_shift($_request), array_shift($_request), $_request);
                 }
             }
-
+        }
 
         /**
          * @param $app string
