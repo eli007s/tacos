@@ -55,7 +55,8 @@
 
             if ($taco != '' && $where != '')
             {
-                $return = array_search($taco, array_column($this->_tacos, $where));
+                //$return = array_search($taco, array_column($this->_tacos, $where));
+                $return = array_keys(array_combine(array_keys($this->_tacos), array_column($this->_tacos, $where)),$taco);
             }
 
             return $return;
