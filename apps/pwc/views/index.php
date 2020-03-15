@@ -7,8 +7,10 @@
 </head>
 <body>
     <div id="container">
-        <textarea></textarea>
-        <input type="submit" name="submit" />
+        <form action="/clean" method="post">
+            <textarea></textarea>
+            <input type="submit" name="submit" />
+        </form>
     </div>
 </body>
 </html>
