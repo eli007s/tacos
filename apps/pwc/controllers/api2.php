@@ -99,10 +99,17 @@
                         {
                             if (array_key_exists($k, $taco))
                             {
+                                $v = (string)$v;
+
+                                if ($v === 'true' || $v === 'false')
+                                {
+                                    $v = (bool)$v;
+                                }
+
                                 $taco[$k] = $v;
                             }
                         }
-print_r($taco);
+
                         $this->_tacos['tacos'][$i] = $taco;
 
                         $fp = fopen($this->_db, 'w');
