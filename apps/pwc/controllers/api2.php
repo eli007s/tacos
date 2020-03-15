@@ -3,14 +3,15 @@
     class Api2_Controller
     {
         private $_tacos = [];
+        private $_db = '';
 
         public function __construct()
         {
-            $file = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
+            $this->_db = $_SERVER['DOCUMENT_ROOT'] . '/db.json';
 
-            if (file_exists($file))
+            if (file_exists($this->_db))
             {
-                $contents = file_get_contents($file);
+                $contents = file_get_contents($this->_db);
                 $contents = utf8_encode($contents);
 
                 $this->_tacos = json_decode($contents, true);
@@ -104,7 +105,7 @@
 print_r($taco);
                         $this->_tacos[$i] = $taco;
 
-                        $fp = fopen('db.json', 'w');
+                        $fp = fopen($this->_db, 'w');
 
                         fwrite($fp, json_encode($this->_tacos));
                         fclose($fp);
