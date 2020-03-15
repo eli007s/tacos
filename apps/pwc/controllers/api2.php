@@ -10,7 +10,10 @@
 
             if (file_exists($file))
             {
-                $this->_tacos = json_decode(file_get_contents($file), true);
+                $contents = file_get_contents($file);
+                $contents = utf8_encode($contents);
+
+                $this->_tacos = json_decode($contents, true);
             }
         }
 
