@@ -51,7 +51,21 @@
                     }
                 }
 
-                echo json_encode($clean);
+                // now that we have our filtered array, lets grab unique words and tally them up
+                /*$clean = array_map(function($word) {
+
+                    $arr = [
+                        'word' => $word,
+                        'numberOfUses' => 0
+                    ];
+
+
+
+                    return $arr;
+
+                }, $clean);*/
+
+                echo json_encode(array_count_values($clean));
             }
         }
 
