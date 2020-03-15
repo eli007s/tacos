@@ -49,22 +49,21 @@
                 }
         }
 
-        private function _listTacos($taco = '', $where = 'name')
+        private function _listTacos($taco = '')
         {
             $return = $this->_tacos;
 
-            if ($taco != '' && $where != '')
+            if ($taco != '')
             {
-                $return = array_search($taco, $this->_tacos);
-                // $return = array_keys(
-                //     array_combine(
-                //         array_keys(
-                //             $this->_tacos
-                //         ), array_column(
-                //             $this->_tacos, $where
-                //         )
-                //     ), $taco
-                // );
+                for ($i = 0; $i < count($this->_tacos); $i++)
+                {
+                    if ($this->_tacos[$i]['name'] === $taco)
+                    {
+                        $return = $this->_tacos[$i];
+
+                        break;
+                    }
+                }
             }
 
             return $return;
