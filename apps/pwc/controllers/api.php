@@ -7,11 +7,11 @@
 
         private $_db = null;
         private $_schema = [
-            'name' => PDO::PARAM_STR,
-            'tortilla' => PDO::PARAM_STR,
-            'toppings' => PDO::PARAM_STR,
-            'vegetarian' => PDO::PARAM_STR,
-            'soft' => PDO::PARAM_STR
+            'name',
+            'tortilla',
+            'toppings',
+            'vegetarian',
+            'soft'
         ];
         private $_initialData = [
             [
@@ -83,7 +83,7 @@
 
                     foreach ($v as $_j => $_i)
                     {
-                        if (array_key_exists($_j, $this->_schema))
+                        if (in_array($_j, $this->_schema))
                         {
                             $val = $_i;
 
@@ -193,7 +193,7 @@
 
                     foreach ($data as $k => $v)
                     {
-                        if (array_key_exists($k, $this->_schema))
+                        if (in_array($k, $this->_schema))
                         {
                             $query .= '`' . $k . '` = :' . $k . ',';
                         }
@@ -205,7 +205,7 @@
 
                     foreach ($data as $k => $v)
                     {
-                        if (array_key_exists($k, $this->_schema))
+                        if (in_array($k, $this->_schema))
                         {
                             $statement->bindValue(':' . $k, (string)$v, PDO::PARAM_STR);
                         }
