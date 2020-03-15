@@ -15,7 +15,7 @@
 
                 $this->_tacos = json_decode($contents, true);
 
-                var_dump($this->_tacos);
+                header('content-type: application/json');
             }
         }
 
