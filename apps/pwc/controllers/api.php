@@ -31,14 +31,14 @@
         {
             // sample text
             $text = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/textSample.txt');
-            //$text = htmlentities($text, ENT_QUOTES, "UTF-8");
+
             $charsToFind = 'RSTLNAEIOU';
 
-            preg_match_all("#^[A-Z][a-z]+[ -][A-Z](')?(?(1)[A-Z])[a-z]+$#", $text, $matches);
-            //$text = explode(' ', $text);
-            //$text = str_replace([',', '.', '?'], '', $text);
+            preg_match_all("/\w+/", $text, $matches);
 
-            echo json_encode($matches);
+            echo '<pre>';
+            print_r($matches);
+            echo '</pre>';
         }
 
         private function _tacos($taco = '')
