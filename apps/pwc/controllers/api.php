@@ -34,10 +34,10 @@
 
             $charsToFind = 'RSTLN AEIOU';
 
-            preg_match_all("/[aouie]/i", $text, $match);
+            preg_match_all("/[aouie]/i", $text, $matches);
 
             echo '<pre>';
-            print_r($match, true);
+            print_r($matches, true);
             echo '</pre>';
         }
 
