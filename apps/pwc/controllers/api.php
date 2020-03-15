@@ -53,7 +53,7 @@
 
                 // now that we have our filtered array, lets grab unique words and tally them up
                 $clean = array_count_values($clean);
-                $clean = array_sort($clean, SORT_DESC);
+                $clean = rsort($clean);
                 /*$clean = array_map(function($word) {
 
                     $arr = [
@@ -67,7 +67,7 @@
 
                 }, $clean);*/
 
-                echo json_encode(array_count_values($clean));
+                echo json_encode($clean);
             }
         }
 
