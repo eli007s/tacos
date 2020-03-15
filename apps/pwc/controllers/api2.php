@@ -43,7 +43,11 @@
 
                 case 'delete':
 
-                    //
+                    $taco = utf8_decode(urldecode(strtok($taco, '?')));
+
+                    $output = $this->_deleteTaco($taco);
+
+                    echo json_encode($output);
 
                 break;
 
