@@ -44,3 +44,7 @@ API Endpoint - `https://domain.com/api/clean`
 
 Paster a blob of text you want to be scanned and cleaned and hut `submit` You'll be taken to the `api` page where you
 will see the `json` output...
+
+## Challenge 3
+
+what whichcraft was that???
