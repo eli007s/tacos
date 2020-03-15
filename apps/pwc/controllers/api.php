@@ -65,17 +65,17 @@
         {
             try
             {
-                $this->_db->exec('DROP TABLE IF EXISTS ' . $this->_table);
-                $this->_db->exec('CREATE TABLE IF NOT EXISTS ' . $this->_table . ' (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                    name VARCHAR(160) NOT NULL,
-                    tortilla VARCHAR(160) NOT NULL,
-                    toppings TEXT NOT NULL,
-                    vegetarian VARCHAR(5) NOT NULL,
-                    soft VARCHAR(5) NOT NULL
+                $this->_db->exec('DROP TABLE IF EXISTS `' . $this->_table . '`');
+                $this->_db->exec('CREATE TABLE IF NOT EXISTS `' . $this->_table . '` (
+                    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    `name` VARCHAR(160) NOT NULL,
+                    `tortilla` VARCHAR(160) NOT NULL,
+                    `toppings` TEXT NOT NULL,
+                    `vegetarian` VARCHAR(5) NOT NULL,
+                    `soft` VARCHAR(5) NOT NULL
                 )');
 
-                $insert = 'INSERT INTO tacos (name, tortilla, toppings, vegetarian, soft) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
+                $insert = 'INSERT INTO tacos (`name`, `tortilla`, `toppings`, `vegetarian`, `soft`) VALUES (:name, :tortilla, :toppings, :vegetarian, :soft)';
 
                 foreach ($this->_initialData as $k => $v)
                 {
@@ -131,7 +131,13 @@
 
                 case 'delete':
 
-                    echo 'delete 🌮';
+                    parse_str(file_get_contents("php://input"), $data);
+
+                    $data['_taco'] = utf8_decode(urldecode(strtok($taco, '?')));
+
+                    $taco = $this->_deleteTaco($data);
+
+                    echo json_encode($taco);
 
                 break;
 
@@ -150,7 +156,7 @@
 
             try
             {
-                $query = 'SELECT * FROM ' . $this->_table;
+                $query = 'SELECT * FROM `' . $this->_table . '`';
 
                 if ($taco != '' && $where != '')
                 {
@@ -161,7 +167,7 @@
 
                 if ($taco != '' && $where != '')
                 {
-                    $statement->bindValue(':' . $where, $taco, PDO::PARAM_STR);
+                    $statement->bindValue(':' . $where, $taco, $where == 'id' ? PDO::PARAM_INT : PDO::PARAM_STR);
                 }
 
                 if ($statement->execute())
@@ -189,7 +195,7 @@
 
                 if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
-                    $query = 'UPDATE ' . $this->_table . ' SET ';
+                    $query = 'UPDATE `' . $this->_table . '` SET ';
 
                     foreach ($data as $k => $v)
                     {
@@ -211,7 +217,7 @@
                         }
                     }
 
-                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_STR);
+                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_INT);
 
                     $statement->execute();
 
@@ -240,17 +246,17 @@
             {
                 $taco = $this->_listTacos($data['_taco'], 'name');
 
-                if ($taco['status'] == 'success')
+                if ($taco['status'] == 'success' && count($taco['tacos']) > 0)
                 {
-                    $query = 'DELETE FROM ' . $this->_table . ' WHERE id = :id';
+                    $query = 'DELETE FROM `' . $this->_table . '` WHERE `id` = :id';
 
                     $statement = $this->_db->prepare($query);
 
-                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_STR);
+                    $statement->bindValue(':id', $taco['tacos'][0]['id'], PDO::PARAM_INT);
 
                     $statement->execute();
 
-                    $results = $this->_listTacos($taco['tacos'][0]['id'], 'id');
+                    $results = $this->_listTacos();
 
                 } else {
 
