@@ -55,6 +55,9 @@
 
             if ($taco != '')
             {
+                // let's assume that we could'nt fine a taco. If we do find one, then $return will update.
+                $return = ['tacos' => []];
+
                 for ($i = 0; $i < count($this->_tacos['tacos']); $i++)
                 {
                     if ($this->_tacos['tacos'][$i]['name'] === $taco)
