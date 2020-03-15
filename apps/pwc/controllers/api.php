@@ -35,11 +35,12 @@
             $charsToFind = 'RSTLNAEIOU';
 
             preg_match_all("/(\w+(['-\w+])*)/i", $text, $matches);
-echo json_encode($matches);
+
             if (count($matches[0] > 0))
             {
                 // we have content to work with yay
                 //
+                echo json_encode($matches[0]);
             }
         }
 
