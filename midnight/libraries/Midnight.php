@@ -23,7 +23,6 @@
                 spl_autoload_register(['MN_Autoloader', 'autoload']);
             }
 
-            MN_Config::load(getcwd() . DS . 'config');
             MN_App::discover();
         }
 
